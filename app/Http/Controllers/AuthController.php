@@ -13,13 +13,12 @@ class AuthController extends Controller
 {
     public function signup(SignUpRequest $request){
         $data = $request->validated();
-        $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password']),'doctor_id'=>$data['doctor_id'] ?? null]);
-        $user->load(['roles','routes']);
+        $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password'])]);
         $token =      $user->createToken('main')->plainTextToken;
         return ['status'=>true,'user'=>$user->load('sub_routes') , 'token'=>$token];
 
     }
-    public function login(\App\Http\Requests\Auth\LoginRequest $request){
+    public function login(LoginRequest $request){
 //        return $request->all();
         $data=  $request->validated();
         if (!\Auth::attempt($data)){
