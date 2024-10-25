@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
@@ -27,3 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::apiResource('meals', MealController::class);
 Route::apiResource('orders', OrderController::class);
+Route::apiResource('costs',\App\Http\Controllers\CostController::class);
+Route::ApiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
+
+

@@ -9,19 +9,19 @@ class MealController extends Controller
 {
     public function store(Request $request)
     {
-        Meal::create([
-            'name' => 'Spaghetti Carbonara',
-            'description' => 'Creamy pasta with bacon and egg',
-            'price' => 12.99,
-            'image' => 'images/meals/spaghetti-carbonara.jpg',
-            'available' => true,
-            'category_id' => 1, // Assuming category ID 1 is "Main Course"
-            'calories' => 550,
-            'prep_time' => 20,
-            'spice_level' => 2,
-            'is_vegan' => false,
-            'is_gluten_free' => false
-        ]);
+//        Meal::create([
+//            'name' => 'Spaghetti Carbonara',
+//            'description' => 'Creamy pasta with bacon and egg',
+//            'price' => 12.99,
+//            'image' => 'images/meals/spaghetti-carbonara.jpg',
+//            'available' => true,
+//            'category_id' => 1, // Assuming category ID 1 is "Main Course"
+//            'calories' => 550,
+//            'prep_time' => 20,
+//            'spice_level' => 2,
+//            'is_vegan' => false,
+//            'is_gluten_free' => false
+//        ]);
         $meal = Meal::create($request->all());
         return response()->json($meal, 201);
     }
