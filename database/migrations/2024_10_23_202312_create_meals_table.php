@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->double('price');
             $table->foreignIdFor(Category::class)->nullable()->constrained();
-            $table->string('description');
-            $table->longText('image');
+            $table->string('description')->nullable();
+            $table->longText('image')->nullable();
             $table->boolean('available')->default(true);
             $table->integer('calories')->nullable();
             $table->integer('prep_time')->nullable(); // in minutes

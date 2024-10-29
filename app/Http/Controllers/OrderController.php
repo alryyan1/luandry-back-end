@@ -1,40 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
 namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Meal;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     // Get all orders
-    public function index()
+    public function index(Request $request)
     {
-        return Order::all();
+        if ($request->query('today')){
+            $today = Carbon::today();
+        return Order::with('mealOrders.meal')->whereDate('created_at',$today)->orderByDesc('id')->get();
+
+    }else{
+        return Order::with('mealOrders.meal')->orderByDesc('id')->get();
+
+    }
     }
 
     // Create a new order
     public function store(Request $request)
     {
-        $meal = Meal::find($request->meal_id);
-        if (!$meal) {
-            return response()->json(['error' => 'Meal not found'], 404);
+        $today = Carbon::today();
+        $user = auth()->user();
+        /** @var Order $lastOrder */
+        $lastOrder =   Order::whereDate('created_at','=',$today)->orderByDesc('id')->first();
+        $new_number = 1;
+        if ($lastOrder){
+            $new_number = $lastOrder->order_number + 1;
         }
-
-        $total_price = $meal->price * $request->quantity;
-        $order = Order::create([
-            'meal_id' => $request->meal_id,
-            'customer_name' => $request->customer_name,
-            'status' => 'pending',
-            'quantity' => $request->quantity,
-            'total_price' => $total_price,
-        ]);
-
-        return response()->json($order, 201);
+        $order = Order::create(['order_number'=>$new_number,'user_id'=>$user->id]);
+        return response()->json(['status'=>$order,'data'=>$order->load('mealOrders.meal')], 201,);
     }
 
     // Update order status
@@ -44,10 +45,18 @@ class OrderController extends Controller
         $order->update(['status' => $request->status]);
         return response()->json($order, 200);
     }
+    public function update(Request $request, Order $order)
+    {
+       $result =  $order->update($request->all());
+        return response()->json(['status'=>$result,'order'=>$order], 200);
+    }
+
 
     // Get a specific order
     public function show($id)
     {
         return Order::find($id);
     }
+
+
 }

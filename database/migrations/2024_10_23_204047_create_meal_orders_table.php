@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Meal::class)->constrained();
             $table->enum('status', ['pending', 'completed', 'cancelled','on_progress'])->default('pending');
             $table->integer('quantity');
+            $table->double('price');
             $table->timestamps();
         });
     }

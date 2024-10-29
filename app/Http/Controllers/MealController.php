@@ -27,7 +27,7 @@ class MealController extends Controller
     }
     public function index()
     {
-        return Meal::all();
+        return Meal::with('category')->get();
     }
 
 
@@ -49,7 +49,7 @@ class MealController extends Controller
     // Delete a meal
     public function destroy($id)
     {
-        Meal::destroy($id);
-        return response()->json(null, 204);
+        $data =  Meal::destroy($id);
+        return response()->json(['status'=>$data], 204);
     }
 }

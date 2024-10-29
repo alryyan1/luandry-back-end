@@ -25,8 +25,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::apiResource('meals', MealController::class);
-Route::apiResource('orders', OrderController::class);
 Route::apiResource('costs',\App\Http\Controllers\CostController::class);
-Route::ApiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
+Route::apiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
+Route::apiResource('orderMeals',\App\Http\Controllers\OrderMealsController::class);
 
+Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store']);
+});
 
+Route::middleware('auth:sanctum')->group(function (){
+    Route::apiResource('orders', OrderController::class);
+
+});

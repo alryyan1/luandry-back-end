@@ -16,23 +16,23 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Customer::class);
-            $table->foreignIdFor(\App\Models\Shift::class);
+            $table->foreignIdFor(Customer::class)->nullable();
             $table->string('order_number');
-            $table->enum('payment_type', ['cash', 'card','transfer']);
-            $table->double('discount');
-            $table->double('amount_paid',11,3);
+            $table->enum('payment_type', ['cash', 'card','transfer'])->default('cash');
+            $table->double('discount')->default(0);
+            $table->double('amount_paid',11,3)->default(0);
             $table->foreignIdFor(User::class);
-            $table->string('notes')->nullable();
+            $table->string('notes')->default('');
             $table->date('delivery_date')->nullable();
             $table->dateTime('completed_at')->nullable();
-            $table->string('delivery_address');
-            $table->string('special_instructions');
+            $table->boolean('order_confirmed')->default(0);
+            $table->string('delivery_address')->default('');
+            $table->string('special_instructions')->default('');
             $table->enum('status', ['pending', 'confirmed', 'in preparation', 'delivered', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->boolean('is_delivery')->default(true);
-            $table->decimal('delivery_fee', 8, 2)->nullable();
-            $table->foreignIdFor(\App\Models\Address::class);
+            $table->decimal('delivery_fee', 8, 2)->default(0);
+            $table->foreignIdFor(\App\Models\Address::class)->nullable();
             $table->timestamps();
         });
     }
