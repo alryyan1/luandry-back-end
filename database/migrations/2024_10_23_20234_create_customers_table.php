@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->foreignIdFor(\App\Models\Address::class);
+            $table->string('address');
             $table->timestamps();
         });
     }

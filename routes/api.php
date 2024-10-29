@@ -28,6 +28,7 @@ Route::apiResource('meals', MealController::class);
 Route::apiResource('costs',\App\Http\Controllers\CostController::class);
 Route::apiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
 Route::apiResource('orderMeals',\App\Http\Controllers\OrderMealsController::class);
+Route::apiResource('customers',\App\Http\Controllers\CustomerController::class);
 
 Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
 Route::middleware('auth:sanctum')->group(function () {

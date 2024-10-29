@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereUpdatedAt($value)
+ * @property string $address
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereAddress($value)
  * @mixin \Eloquent
  */
 class Customer extends Model
