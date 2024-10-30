@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Meal;
+use App\Models\OrderMeal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,14 +15,14 @@ class OrderController extends Controller
     // Get all orders
     public function index(Request $request)
     {
-        if ($request->query('today')){
+        if ($request->query('today')) {
             $today = Carbon::today();
-        return Order::with('mealOrders.meal')->whereDate('created_at',$today)->orderByDesc('id')->get();
+            return Order::with('mealOrders.meal')->whereDate('created_at', $today)->orderByDesc('id')->get();
 
-    }else{
-        return Order::with('mealOrders.meal')->orderByDesc('id')->get();
+        } else {
+            return Order::with('mealOrders.meal')->orderByDesc('id')->get();
 
-    }
+        }
     }
 
     // Create a new order
@@ -29,13 +31,13 @@ class OrderController extends Controller
         $today = Carbon::today();
         $user = auth()->user();
         /** @var Order $lastOrder */
-        $lastOrder =   Order::whereDate('created_at','=',$today)->orderByDesc('id')->first();
+        $lastOrder = Order::whereDate('created_at', '=', $today)->orderByDesc('id')->first();
         $new_number = 1;
-        if ($lastOrder){
+        if ($lastOrder) {
             $new_number = $lastOrder->order_number + 1;
         }
-        $order = Order::create(['order_number'=>$new_number,'user_id'=>$user->id]);
-        return response()->json(['status'=>$order,'data'=>$order->load('mealOrders.meal')], 201,);
+        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id]);
+        return response()->json(['status' => $order, 'data' => $order->load('mealOrders.meal')], 201,);
     }
 
     // Update order status
@@ -45,10 +47,22 @@ class OrderController extends Controller
         $order->update(['status' => $request->status]);
         return response()->json($order, 200);
     }
+
     public function update(Request $request, Order $order)
     {
-       $result =  $order->update($request->all());
-        return response()->json(['status'=>$result,'order'=>$order], 200);
+
+        $amount_paid =0 ;
+        if ($request->get('order_confirmed')){
+            $amount_paid = $order->mealOrders->sum(function ($orderMeal) {
+                return $orderMeal->meal->price;
+            });
+
+        }
+
+        $order->amount_paid = $amount_paid;
+//        return ['amount' => $amount_paid];
+        $result = $order->update($request->all());
+        return response()->json(['status' => $result, 'order' => $order->load('customer')], 200);
     }
 
 

@@ -3,10 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function info(Request $request)
+    {
+        $orders = Order::all();
+        $customers = Customer::all();
+        $total_revenues = 0 ;
+        /** @var Order $order */
+        foreach ($orders as $order){
+            $total_revenues += $order->mealOrders->sum(function ($mealOrder){
+               return $mealOrder->meal->price ;
+            });
+        }
+
+        return ['totalRevenue'=>$total_revenues,'activeCustomers'=>$customers->count(),'totalOrders'=>$orders->count()];
+    }
+
+
     /**
      * Display a listing of the resource.
      */

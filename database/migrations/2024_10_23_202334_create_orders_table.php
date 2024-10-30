@@ -32,7 +32,6 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->boolean('is_delivery')->default(true);
             $table->decimal('delivery_fee', 8, 2)->default(0);
-            $table->foreignIdFor(\App\Models\Address::class)->nullable();
             $table->timestamps();
         });
     }

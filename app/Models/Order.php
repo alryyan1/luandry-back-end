@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $customer_id
@@ -59,10 +59,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
-    protected $with = ['mealOrders'];
+    protected $with = ['mealOrders','customer'];
     protected $guarded = ['id'];
     use HasFactory;
-
+    public function Customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
     public function mealOrders()
     {
         return $this->hasMany(OrderMeal::class);
