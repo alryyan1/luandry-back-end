@@ -73,4 +73,9 @@ class OrderController extends Controller
     }
 
 
+    public function destroy(Request $request ,Order $order)
+    {
+        return ['status'=>$order->delete()];
+    }
+
 }

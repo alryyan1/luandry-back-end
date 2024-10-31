@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Ramsey\Collection\Collection;
 
 class ReservationController extends Controller
 {
@@ -13,7 +15,27 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return Reservation::all();
+        $orders = Order::has('mealOrders')->where('delivery_date','!=',null)->get();
+        $food_reservations = [];
+        /** @var Order $order */
+        foreach ($orders as $order){
+
+            $ordersMeals = $order->orderMealsNames();
+            $name = $order?->customer?->name;
+            $address = $order?->customer?->address;
+            $message = <<<TEXT
+الاسم:               $name
+
+العنوان:                    $address
+
+الطلبات:
+$ordersMeals
+TEXT;
+            $fr = ['id'=>$order->id,'title'=>$message,'start'=>$order->delivery_date,'end'=>$order->delivery_date];
+            $food_reservations[] = $fr;
+        }
+        $reservations = Reservation::all();
+        return  ['reservations'=>$reservations,'orderReservations'=>$food_reservations];
     }
 
     /**

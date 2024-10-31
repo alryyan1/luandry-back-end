@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function mealReservations(Request $request)
+    {
+       $orders = Order::has('mealOrders')->where('delivery_date','!=',null)->get();
+    }
     public function info(Request $request)
     {
         $orders = Order::all();

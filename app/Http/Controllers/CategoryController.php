@@ -18,6 +18,6 @@ class CategoryController extends Controller
         // Create category with validated data
       $data =   Category::create($validated);
 
-        return response()->json(['message' => 'Category created successfully','status'=>$data]);
+        return response()->json(['message' => 'Category created successfully','status'=>$data->fresh()]);
     }
 }

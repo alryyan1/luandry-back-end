@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $meal_orders_count
  * @property int $order_confirmed
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrderConfirmed($value)
+ * @property-read Customer|null $customer
  * @mixin \Eloquent
  */
 class Order extends Model
@@ -62,7 +63,14 @@ class Order extends Model
     protected $with = ['mealOrders','customer'];
     protected $guarded = ['id'];
     use HasFactory;
-    public function Customer()
+
+    public function orderMealsNames()
+    {
+        return $this->mealOrders->reduce(function ($prev,$curr){
+           return $prev .' '.$curr->meal->name . ' x '.$curr->quantity;
+        },'');
+    }
+    public function customer()
     {
         return $this->belongsTo(Customer::class);
     }

@@ -29,8 +29,10 @@ Route::apiResource('costs',\App\Http\Controllers\CostController::class);
 Route::apiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
 Route::apiResource('orderMeals',\App\Http\Controllers\OrderMealsController::class);
 Route::apiResource('customers',\App\Http\Controllers\CustomerController::class);
+Route::apiResource('mealReservations',\App\Http\Controllers\CustomerController::class);
 Route::get('info',[\App\Http\Controllers\CustomerController::class,'info']);
 Route::apiResource('reservations', \App\Http\Controllers\ReservationController::class);
+Route::apiResource('childMeals', \App\Http\Controllers\ChildMealController::class);
 
 Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
 Route::middleware('auth:sanctum')->group(function () {
