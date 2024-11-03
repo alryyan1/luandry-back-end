@@ -4,10 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderMeal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderMealsController extends Controller
 {
+    public function ordersInfoGraphic()
+    {
+//        \DB::enableQueryLog();
+
+
+        $today =  Carbon::today();
+       $lastWeek =  Carbon::today()->subDays(7);
+       $data=  Order::select([
+            \DB::raw('DATE(created_at) as date'),
+            \DB::raw('SUM(amount_paid) as amount_paid'),
+            \DB::raw('COUNT(id) as id_count')
+        ])
+            ->whereRaw("DATE(created_at) BETWEEN ? AND ?", [$lastWeek, $today])
+            ->groupBy('date')
+            ->get();
+       $new_data = [];
+       foreach ($data as $d){
+           $innerArray = [
+             'name'=>Carbon::parse($d->date)->format('l'),
+             'sales'=>$d->amount_paid
+           ];
+           $new_data[] = $innerArray;
+       }
+       return $new_data;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -25,10 +52,11 @@ class OrderMealsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Sdtore a newly created resource in storage.
      */
     public function store(Request $request)
     {
+
         $order = Order::find($request->order_id);
         if ($order->order_confirmed){
             return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);

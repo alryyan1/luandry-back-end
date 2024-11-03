@@ -51,16 +51,24 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
 
-        $amount_paid =0 ;
+
         if ($request->get('order_confirmed')){
+
+            if ($order->status == 'cancelled'){
+                return response()->json(['status'=>false,'message'=>'يجب تغيير حاله  اولا '],404);
+            }
             $amount_paid = $order->mealOrders->sum(function ($orderMeal) {
-                return $orderMeal->meal->price;
+                return $orderMeal->meal->price * $orderMeal->quantity;
             });
+            $order->amount_paid = $amount_paid;
+
+
+        }elseif ($request->get('status') == 'cancelled'){
+            $order->order_confirmed = 0;
+            $order->amount_paid = 0;
 
         }
 
-        $order->amount_paid = $amount_paid;
-//        return ['amount' => $amount_paid];
         $result = $order->update($request->all());
         return response()->json(['status' => $result, 'order' => $order->load('customer')], 200);
     }
