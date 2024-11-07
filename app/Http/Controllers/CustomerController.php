@@ -57,7 +57,7 @@ class CustomerController extends Controller
         ]);
 
         $customer = Customer::create($data);
-        return ['status'=>$customer,'data'=>$customer];
+        return ['status'=>$customer,'data'=>$customer,'show'=>$customer==true];
     }
 
     /**

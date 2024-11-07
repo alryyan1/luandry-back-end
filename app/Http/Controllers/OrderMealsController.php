@@ -93,6 +93,10 @@ class OrderMealsController extends Controller
      */
     public function update(Request $request, OrderMeal $orderMeal)
     {
+        $order = $orderMeal->order;
+        if ($order->order_confirmed){
+            return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);
+        }
         if ($request->get('quantity') == 0 ){
             $order = $orderMeal->load('order')->order;
            $result =  $orderMeal->delete();

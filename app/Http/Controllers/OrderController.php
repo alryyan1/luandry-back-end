@@ -70,7 +70,7 @@ class OrderController extends Controller
         }
 
         $result = $order->update($request->all());
-        return response()->json(['status' => $result, 'order' => $order->load('customer')], 200);
+        return response()->json(['status' => $result, 'order' => $order->load('customer'),'show'=>$order->order_confirmed == true], 200);
     }
 
 

@@ -64,6 +64,12 @@ class Order extends Model
     protected $guarded = ['id'];
     use HasFactory;
 
+    public function totalAmount()
+    {
+        return $this->mealOrders->reduce(function ($pre,$cur){
+            return $pre + $cur->meal->price;
+        },0);
+    }
     public function orderMealsNames()
     {
         return $this->mealOrders->reduce(function ($prev,$curr){
