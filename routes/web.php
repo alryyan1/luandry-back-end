@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +20,9 @@ Route::get('/', function () {
 });
 
 Route::get('/orders',[\App\Http\Controllers\PDFController::class,'orders']);
+
+
+Route::get('/users',[UserController::class,'create']);
+Route::get('/users/{userId}',[UserController::class,'destroy']);
+Route::post('/createUSer',[UserController::class,'store']);
+Route::post('/updateUser',[UserController::class,'update']);

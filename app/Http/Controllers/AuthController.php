@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+
     public function signup(SignUpRequest $request){
+
         $data = $request->validated();
         $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password'])]);
         $token =      $user->createToken('main')->plainTextToken;
         return ['status'=>true,'user'=>$user->load('sub_routes') , 'token'=>$token];
-
     }
     public function login(LoginRequest $request){
 //        return $request->all();
