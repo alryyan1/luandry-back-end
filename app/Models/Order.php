@@ -76,6 +76,21 @@ class Order extends Model
            return $prev .' '.$curr->meal->name . ' x '.$curr->quantity;
         },'');
     }
+    protected $appends = ['totalPrice'];
+    public function getTotalPriceAttribute()
+    {
+        return $this->totalPrice();
+    }
+    public function totalPrice()
+    {
+        $total = 0;
+        /** @var OrderMeal $mealOrder */
+        foreach ($this->mealOrders as $mealOrder){
+            $total+= $mealOrder->price  * $mealOrder->quantity;
+        }
+        $total+= $this->delivery_fee;
+        return $total;
+    }
     public function customer()
     {
         return $this->belongsTo(Customer::class);

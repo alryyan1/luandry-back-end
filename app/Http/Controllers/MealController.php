@@ -23,7 +23,7 @@ class MealController extends Controller
 //            'is_gluten_free' => false
 //        ]);
         $meal = Meal::create($request->all());
-        return response()->json($meal, 201);
+        return response()->json($meal->fresh(), 201);
     }
     public function index()
     {

@@ -37,7 +37,7 @@ class OrderController extends Controller
             $new_number = $lastOrder->order_number + 1;
         }
         $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id]);
-        return response()->json(['status' => $order, 'data' => $order->load('mealOrders.meal')], 201,);
+        return response()->json(['status' => $order, 'data' => $order->load(['mealOrders.meal','mealOrders'])], 201,);
     }
 
     // Update order status
@@ -57,10 +57,9 @@ class OrderController extends Controller
             if ($order->status == 'cancelled'){
                 return response()->json(['status'=>false,'message'=>'يجب تغيير حاله  اولا '],404);
             }
-            $amount_paid = $order->mealOrders->sum(function ($orderMeal) {
-                return $orderMeal->meal->price * $orderMeal->quantity;
-            });
-            $order->amount_paid = $amount_paid;
+
+            $order->amount_paid = $order->totalPrice();
+            $order->status = 'confirmed';
 
 
         }elseif ($request->get('status') == 'cancelled'){

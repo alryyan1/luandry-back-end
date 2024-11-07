@@ -63,6 +63,7 @@ class ChildMealController extends Controller
      */
     public function destroy(ChildMeal $childMeal)
     {
-        //
+        return ['status'=>$childMeal->delete(),'data'=>$childMeal->meal];
+
     }
 }
