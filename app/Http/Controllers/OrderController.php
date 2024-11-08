@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportOrder;
 use App\Models\Order;
 use App\Models\Meal;
 use App\Models\OrderMeal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -84,6 +86,11 @@ class OrderController extends Controller
     public function destroy(Request $request ,Order $order)
     {
         return ['status'=>$order->delete()];
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ExportOrder, 'orders.xlsx');
     }
 
 }
