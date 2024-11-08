@@ -129,13 +129,13 @@
                                 الرجاء الإختيار من القائمة فقط
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            {{--  <div class="form-group">
                                 <label class="form-label"> كلمة المرور </label>
                                 <input type="password" class="form-control" name="password">
                                 @error('name')
                                 قيمة الحقل غير صحيحة - لابد ان تتكون من 6 حروف على الأقل أو أرقام
                                 @enderror
-                            </div>
+                            </div>  --}}
 
                         </div>
                         <div class="modal-footer justify-content-between" style="display: flex; justify-content:space-between;">
