@@ -36,7 +36,7 @@ class OrderController extends Controller
         if ($lastOrder) {
             $new_number = $lastOrder->order_number + 1;
         }
-        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id]);
+        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id,'delivery_date'=>$today]);
         return response()->json(['status' => $order, 'data' => $order->load(['mealOrders.meal','mealOrders'])], 201,);
     }
 
