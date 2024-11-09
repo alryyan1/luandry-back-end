@@ -36,7 +36,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->user_type = $request->user_type;
-        if($request->password){$user->password = bcrypt($request->password);}
+        // if($request->password){$user->password = bcrypt($request->password);}
         $user->update();
 
         return redirect('users')->with('message','تم تعديل بيانات المستخدم');;
