@@ -27,7 +27,7 @@ class MealController extends Controller
     }
     public function index()
     {
-        return Meal::with('category')->get();
+        return Meal::with('category')->orderByDesc('id')->get();
     }
 
 

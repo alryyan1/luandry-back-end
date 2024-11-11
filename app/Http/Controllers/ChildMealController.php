@@ -55,7 +55,7 @@ class ChildMealController extends Controller
      */
     public function update(Request $request, ChildMeal $childMeal)
     {
-        //
+        return $childMeal->update($request->all());
     }
 
     /**

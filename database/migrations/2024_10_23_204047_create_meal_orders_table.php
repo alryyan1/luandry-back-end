@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meal_orders', function (Blueprint $table) {
+        Schema::create('order_meals', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Order::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Meal::class)->constrained();
             $table->enum('status', ['pending', 'completed', 'cancelled','on_progress'])->default('pending');
             $table->integer('quantity');
             $table->double('price');
+            $table->unique(['order_id', 'meal_id']);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('meal_orders');
+        Schema::dropIfExists('order_meals');
     }
 };

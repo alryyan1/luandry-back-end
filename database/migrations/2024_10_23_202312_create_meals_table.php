@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('price');
+            $table->double('price')->default(0);
             $table->foreignIdFor(Category::class)->nullable()->constrained();
             $table->string('description')->nullable();
             $table->longText('image')->nullable();

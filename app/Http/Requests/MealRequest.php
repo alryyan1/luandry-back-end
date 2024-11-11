@@ -24,7 +24,10 @@ class MealRequest extends FormRequest
         return [
             'meal_id' => 'required|exists:meals,id',    // Ensures a valid Meal ID is provided
             'quantity' => 'required|integer|min:1',     // Quantity must be an integer and at least 1
-            'name' => 'required|string|max:255',        // Name must be a string with a maximum length of 255 characters
+            'name' => 'required|string|max:255',
+            'price'=> '',
+            'weight'=> '',
+            'people_count'=>''
         ];
     }
 }

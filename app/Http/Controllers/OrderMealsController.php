@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderMeal;
+use App\Models\RequestedChildMeal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -61,14 +62,13 @@ class OrderMealsController extends Controller
         if ($order->order_confirmed){
             return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);
         }
-       $orderMeal =  OrderMeal::where('meal_id',$request->meal_id)->where('order_id',$request->order_id)->first();
-       if ($orderMeal){
-           return ['status'=>$orderMeal->update(['quantity'=>$orderMeal->quantity + 1]),'order'=>$orderMeal->order->load('mealOrders.meal')];
+      //  $orderMeal =  OrderMeal::where('meal_id',$request->meal_id)->where('order_id',$request->order_id)->first();
+        $orderMeal =  OrderMeal::create($request->all());
 
-       }else{
-           $data =  OrderMeal::create($request->all());
-           return ['status'=>$data,'order'=>$data->order->load('mealOrders.meal')];
-       }
+//        $requestedChildController = new RequestedChildMealController();
+//        $requestedChildController->store($request,$orderMeal);
+
+        return ['status'=>$orderMeal,'order'=>$orderMeal->order->load('mealOrders.meal')];
 
     }
 
@@ -97,12 +97,7 @@ class OrderMealsController extends Controller
         if ($order->order_confirmed){
             return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);
         }
-        if ($request->get('quantity') == 0 ){
-            $order = $orderMeal->load('order')->order;
-           $result =  $orderMeal->delete();
-            return ['status'=>$result,'order'=> $order->fresh()];
 
-        }
         return ['status'=>$orderMeal->update($request->all()),'order'=>$orderMeal->load('order')->order];
     }
 
@@ -111,6 +106,9 @@ class OrderMealsController extends Controller
      */
     public function destroy(OrderMeal $orderMeal)
     {
+        $order = $orderMeal->load('order')->order;
+        $result =  $orderMeal->delete();
+        return ['status'=>$result,'order'=> $order->fresh()];
     }
 }
 

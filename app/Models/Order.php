@@ -56,6 +56,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $order_confirmed
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrderConfirmed($value)
  * @property-read Customer|null $customer
+ * @property float $cost
+ * @property-read mixed $total_price
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCost($value)
  * @mixin \Eloquent
  */
 class Order extends Model
@@ -86,7 +89,8 @@ class Order extends Model
         $total = 0;
         /** @var OrderMeal $mealOrder */
         foreach ($this->mealOrders as $mealOrder){
-            $total+= $mealOrder->price  * $mealOrder->quantity;
+//                return ['$requestedMeal'=>$requestedMeal];
+                $total += $mealOrder->totalPrice() ;
         }
         $total+= $this->delivery_fee;
         return $total;

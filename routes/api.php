@@ -28,6 +28,7 @@ Route::apiResource('meals', MealController::class);
 Route::apiResource('costs',\App\Http\Controllers\CostController::class);
 Route::apiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
 Route::apiResource('orderMeals',\App\Http\Controllers\OrderMealsController::class);
+Route::post('RequestedChild/{orderMeal}',[\App\Http\Controllers\RequestedChildMealController::class,'store']);
 Route::get('ordersInfoGraphic',[\App\Http\Controllers\OrderMealsController::class,'ordersInfoGraphic']);
 Route::apiResource('customers',\App\Http\Controllers\CustomerController::class);
 Route::apiResource('mealReservations',\App\Http\Controllers\CustomerController::class);

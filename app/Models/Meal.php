@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -40,6 +40,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Meal wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Meal whereSpiceLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Meal whereUpdatedAt($value)
+ * @property string $people_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChildMeal> $childMeals
+ * @property-read int|null $child_meals_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Meal wherePeopleCount($value)
  * @mixin \Eloquent
  */
 class Meal extends Model
