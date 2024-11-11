@@ -11,4 +11,9 @@ class Item extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = ['ar_name','en_name'];
+
+    public function costItem()
+    {
+        return $this->hasMany(CostItem::class,'item_id');
+    }
 }

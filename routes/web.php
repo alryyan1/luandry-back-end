@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CostController;
+use App\Http\Controllers\CostItemController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +40,19 @@ Route::get('/items',[ItemController::class,'index']);
 Route::get('/items/{itemId}',[ItemController::class,'destroy']);
 Route::post('/createItem',[ItemController::class,'store']);
 Route::post('/updateItem',[ItemController::class,'update']);
+
+//costs
+Route::get('/costs',[CostItemController::class,'index']);
+Route::get('/destroyCost/{costId}',[CostItemController::class,'destroy']);
+Route::get('/costs/create',[CostItemController::class,'create']);
+Route::post('/costs',[CostItemController::class,'store']);
+
+
+Route::get('/itemReport',[CostItemController::class,'itemReport']);
+
+
+//suppliers
+Route::get('/suppliers',[SupplierController::class,'index']);
+Route::get('/suppliers/{supplierId}',[SupplierController::class,'destroy']);
+Route::post('/createSupplier',[SupplierController::class,'store']);
+Route::post('/updateSupplier',[SupplierController::class,'update']);
