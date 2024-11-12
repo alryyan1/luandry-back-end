@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_header')->default(0);
+            $table->boolean('is_footer')->default(0);
+            $table->boolean('is_logo')->default(0);
+            $table->longText('header_base64')->nullable();
+            $table->longText('footer_base64')->nullable();
+            $table->string('header_content')->nullable();
+            $table->string('footer_content')->nullable();
+            $table->longText('logo_base64')->nullable();
+            $table->string('lab_name')->nullable();
+            $table->string('kitchen_name')->nullable();
+            $table->boolean('print_direct')->nullable();
+            $table->string('inventory_notification_number')->nullable();
             $table->timestamps();
         });
     }

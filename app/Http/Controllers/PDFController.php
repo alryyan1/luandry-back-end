@@ -13,12 +13,15 @@ use App\Models\Item;
 use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Order;
+use App\Models\OrderMeal;
 use App\Models\Package;
 use App\Models\Patient;
 use App\Models\PrescribedDrug;
+use App\Models\RequestedChildMeal;
 use App\Models\RequestedResult;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\Settings;
 use App\Models\Shift;
 use App\Models\Shipping;
 use App\Models\Specialist;
@@ -166,6 +169,179 @@ class PDFController extends Controller
         $pdf->Output('example_003.pdf', 'I');
         $code_num++;
     }
+    public function printSale(Request $request)
+    {
+        //سعدنا بزيارتكم اسم العميل نتمني لكم دوام الصحه والعافيه
 
+        $order = Order::find($request->get('order_id'));
+         $totalChildren = $order->mealOrders->reduce(function ($prev,$curr){
+            return $prev + $curr->requestedChildMeals->count();
+        },0);
+        $count =  $order->mealOrders->count();
+        $custom_layout = array(80, 120 + ($count * 5)*2 + ($totalChildren * 5)) ;
+        $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $lg = array();
+
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('ticket');
+        $pdf->setSubject('ticket');
+        $pdf->setMargins(0, 0, 10);
+//        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+//        $pdf->setFooterMargin(0);
+        $page_width = 65;
+//        echo  $pdf->getPageWidth();
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        $settings= Settings::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 80 , 5, 80, 30,align: 'C',fitbox: 1);
+
+        }
+
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(5, 0, 10);
+
+        //$pdf->Ln(25);
+        $pdf->SetFillColor(240, 240, 240);
+
+        $pdf->SetFont($arial, '', 7, '', true);
+        $pdf->Cell(60,5,$order->created_at->format('Y/m/d H:i A'),0,1);
+
+        $pdf->SetFont($arial, 'u', 10, '', true);
+        $pdf->Ln(10);
+
+        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+//        $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
+        $pdf->SetFont($arial, '', 10, '', true);
+        $pdf->SetFont($arial, '', 7, '', true);
+
+        $colWidth = $page_width/3;
+        $pdf->Cell($page_width,5,'  فاتوره Invoice',0,1,'C',fill: 1);
+//        $pdf->Cell($page_width,5,'VATIN '.$settings->vatin,0,1,'C',fill: 0);
+        $pdf->Cell(15,5,'رقم الطلب :',0,0);
+        $pdf->Cell(35,5,$order->id,0,0,'C');
+        $pdf->Cell(15,5,'Oder No :',0,1,'L');
+
+        $pdf->Cell(15,5,'التاريخ :',0,0);
+        $pdf->Cell(35,5,$order->created_at->format('Y-m-d H:i A'),0,0,'');
+        $pdf->Cell(15,5,'Date :',0,1,'L');
+
+        $pdf->Cell(15,5,'المستخدم :',0,0);
+        $pdf->Cell(35,5,$order->user->username,0,0,'C');
+        $pdf->Cell(15,5,'User :',0,1,'L');
+
+        $pdf->Cell(15,5,'اسم العميل :',0,0);
+        $pdf->Cell(35,5,$order->customer->name ?? 'Default Client',0,0,'C');
+        $pdf->Cell(15,5,'To :',0,1,'L');
+
+//        $pdf->Ln();
+//        $pdf->Cell(15,5,'Date',0,0);
+
+//        $pdf->Ln();
+        $pdf->SetFont($arial, 'u', 10, '', true);
+
+//        $pdf->Cell(25,5,'Requested Items',0,1,'L');
+
+        $pdf->SetFont($arial, '', 8, '', true);
+        $colWidth = $page_width/4;
+
+        /** @var OrderMeal $orderMeal */
+        foreach ($order->mealOrders as $orderMeal){
+            $pdf->Cell($page_width,5,$orderMeal->meal->name.' ',1,1,fill: 1,stretch: 1);
+            $colWidth = $page_width/3;
+
+            $pdf->Cell($colWidth,5,'الطلب','TB',0,fill: 0);
+            $pdf->Cell($colWidth,5,'العدد','TB',0,fill: 0);
+            $pdf->Cell($colWidth,5,'السعر','TB',1,fill: 0);
+            /** @var RequestedChildMeal $requestedChildMeal */
+            foreach ($orderMeal->requestedChildMeals as $requestedChildMeal){
+                $pdf->Cell($colWidth,5,$requestedChildMeal->childMeal->name,'TB',0,fill: 0);
+                $pdf->Cell($colWidth,5,$requestedChildMeal->quantity,'TB',0,fill: 0);
+                $pdf->Cell($colWidth,5,$requestedChildMeal->price,'TB',1,fill: 0);
+
+            }
+            $pdf->Ln();
+        }
+//
+
+        $pdf->Ln();
+        $style = array(
+            'position' => 'C',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+
+
+
+//        $pdf->Ln();
+//        $pdf->write1DBarcode("$order->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
+//        $pdf->Ln();
+        $cols = $page_width / 6;
+        $y = $pdf->GetY();
+        $pdf->setLineWidth(1);
+        $pdf->Line(5,$y,$page_width +5 ,$y);
+//                $pdf->Ln();
+        $pdf->setLineWidth(0.5);
+
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20,5,'المجموع','TB',0,'C',fill: 0);
+        $pdf->Cell(20,5,$order->totalPrice() ,'TB' ,0,'C',0);
+
+        $pdf->Cell(20 ,5,'Total','TB',1,'C',fill: 0);
+
+
+
+
+
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20,5,'الدفع',0,0,'C',fill: 0);
+        $pdf->Cell(20,5,$order->payment_type ,0 ,0,'C',0);
+
+        $pdf->Cell(20 ,5,'Payment',0,1,'C',fill: 0);
+        $y = $pdf->GetY();
+        $pdf->setLineWidth(1);
+        $pdf->Line(5,$y,$page_width +5 ,$y);
+
+
+
+
+
+        $pdf->Cell($page_width,5,'CR'.$settings->cr,0,1,'C');
+        $pdf->Cell($page_width,5,'GSM'.$settings->phone,0,1,'C');
+        $pdf->Cell($page_width,5,'Email:'.$settings->email,0,1,'C');
+        $pdf->Cell( $page_width,5,$settings->address.'  Address',0,1,'C');
+
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
 
 }

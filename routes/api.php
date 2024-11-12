@@ -3,6 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RequestedChildMealController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,13 +31,15 @@ Route::apiResource('meals', MealController::class);
 Route::apiResource('costs',\App\Http\Controllers\CostController::class);
 Route::apiResource('CostCategories',\App\Http\Controllers\CostCategoryController::class);
 Route::apiResource('orderMeals',\App\Http\Controllers\OrderMealsController::class);
-Route::post('RequestedChild/{orderMeal}',[\App\Http\Controllers\RequestedChildMealController::class,'store']);
+Route::post('RequestedChild/{orderMeal}',[RequestedChildMealController::class,'store']);
 Route::get('ordersInfoGraphic',[\App\Http\Controllers\OrderMealsController::class,'ordersInfoGraphic']);
 Route::apiResource('customers',\App\Http\Controllers\CustomerController::class);
 Route::apiResource('mealReservations',\App\Http\Controllers\CustomerController::class);
 Route::get('info',[\App\Http\Controllers\CustomerController::class,'info']);
-Route::apiResource('reservations', \App\Http\Controllers\ReservationController::class);
+Route::apiResource('reservations', ReservationController::class);
 Route::apiResource('childMeals', \App\Http\Controllers\ChildMealController::class);
+Route::post('settings',[SettingsController::class,'update']);
+Route::get('settings',[SettingsController::class,'index']);
 
 Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
 Route::middleware('auth:sanctum')->group(function () {
@@ -45,3 +50,5 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('orders', OrderController::class);
 
 });
+Route::post('orderConfirmed/{order}',[OrderController::class,'orderConfirmed']);
+Route::get('/printSale',[\App\Http\Controllers\PDFController::class,'printSale']);

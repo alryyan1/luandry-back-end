@@ -65,6 +65,10 @@ class Order extends Model
 {
     protected $with = ['mealOrders','customer'];
     protected $guarded = ['id'];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     use HasFactory;
 
     public function totalAmount()
@@ -95,6 +99,7 @@ class Order extends Model
         $total+= $this->delivery_fee;
         return $total;
     }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

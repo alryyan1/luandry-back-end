@@ -8,12 +8,27 @@ use App\Exports\ExportOrder;
 use App\Models\Order;
 use App\Models\Meal;
 use App\Models\OrderMeal;
+use App\Models\Whatsapp;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
+    public function orderConfirmed(Request $request , Order $order)
+    {
+        $meals_names = $order->orderMealsNames();
+        $totalPrice = $order->totalPrice();
+        $msg = <<<TEXT
+مطبح دل-باستا
+شكرا لك علي اختيارك
+لقد تم تأكيد طلبك
+$meals_names
+الملغ  $totalPrice ريال
+TEXT;
+
+        Whatsapp::sendMsgWb($order->customer->phone,$msg);
+    }
     // Get all orders
     public function index(Request $request)
     {

@@ -23,10 +23,16 @@ class ReservationController extends Controller
             $ordersMeals = $order->orderMealsNames();
             $name = $order?->customer?->name;
             $address = $order?->customer?->address;
+            $phone = $order?->customer?->phone;
+            $status = $order?->status;
             $message = <<<TEXT
 الاسم:               $name
 
 العنوان:                    $address
+
+رقم الهاتف:                    $phone
+
+حاله الطلب :                    $status
 
 الطلبات:
 $ordersMeals

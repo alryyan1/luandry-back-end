@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/orders',[\App\Http\Controllers\PDFController::class,'orders']);
+Route::get('/print',[\App\Http\Controllers\PDFController::class,'printSale']);
 
 
 Route::get('/users',[UserController::class,'create']);
