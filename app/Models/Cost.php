@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $user_cost
@@ -42,5 +42,15 @@ class Cost extends Model
     }
     public function costCategory(){
         return $this->belongsTo(CostCategory::class);
+    }
+
+    public function costItem()
+    {
+        return $this->hasMany(CostItem::class,'cost_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class,'supplier_id');
     }
 }
