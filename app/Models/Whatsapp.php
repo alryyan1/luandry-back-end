@@ -47,7 +47,7 @@ class Whatsapp extends Model
         if ($err) {
             return ["cURL Error" => $err];
         } else {
-            return  ['response'=> $response];
+            return  ['status'=> $response,'show'=>true];
         }
     }
     public static function  sendPdf($document, $phone)

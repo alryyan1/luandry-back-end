@@ -52,3 +52,5 @@ Route::middleware('auth:sanctum')->group(function (){
 });
 Route::post('orderConfirmed/{order}',[OrderController::class,'orderConfirmed']);
 Route::get('/printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
+Route::get('orderMealsStats',[\App\Http\Controllers\OrderController::class,'orderMealsStats']);
+Route::post('send/{order}',[\App\Http\Controllers\OrderController::class,'send']);

@@ -38,6 +38,7 @@ class OrderMeal extends Model
     use HasFactory;
 //    protected $table ='meal_orders';
     protected $with = ['meal','requestedChildMeals'];
+    public $timestamps  = false;
 
     protected $appends=['totalPrice'];
     public function getTotalPriceAttribute()

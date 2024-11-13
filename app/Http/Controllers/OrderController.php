@@ -12,22 +12,54 @@ use App\Models\Whatsapp;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PDO;
 
 class OrderController extends Controller
 {
-    public function orderConfirmed(Request $request , Order $order)
+    public function send(Request $request,Order $order)
     {
+        if ($order->customer == null){
+            return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+        }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
         $msg = <<<TEXT
-مطبح دل-باستا
-شكرا لك علي اختيارك
-لقد تم تأكيد طلبك
-$meals_names
-الملغ  $totalPrice ريال
+اهلاً وسهلاً ،
+اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
+
+
+تكرماً : إيداع المبلغ لإعتماد الطلب
+
+0345043777450011
+منى العيسائي
+بنك مسقط
+
+تحويل سريع
+95519234
+
+الفاتوره  $totalPrice ريال
 TEXT;
 
-        Whatsapp::sendMsgWb($order->customer->phone,$msg);
+      return  Whatsapp::sendMsgWb($order->customer->phone,$msg);
+
+    }
+    public function orderMealsStats(Request $request)
+    {
+        $pdo = \DB::getPdo();
+        $date =  $request->get('date');
+//        $query = ;
+        $data =  $pdo->query("SELECT meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity) as totalQuantity FROM `requested_child_meals`
+    JOIN child_meals  on child_meals.id = requested_child_meals.child_meal_id
+    join order_meals  on order_meals.id = requested_child_meals.order_meal_id
+    join meals  on meals.id = child_meals.meal_id
+    join orders on orders.id = order_meals.order_id
+                                            WHERE orders.delivery_date = '$date' GROUP by child_meals.id,child_meals.name,meals.name")->fetchAll();
+//        \DB::table('requested_child_meals')
+        return response()->json($data);
+    }
+    public function orderConfirmed(Request $request , Order $order)
+    {
+
     }
     // Get all orders
     public function index(Request $request)
@@ -72,6 +104,9 @@ TEXT;
 
         if ($request->get('order_confirmed')){
 
+            if ($order->customer == null){
+                return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+            }
             if ($order->status == 'cancelled'){
                 return response()->json(['status'=>false,'message'=>'يجب تغيير حاله  اولا '],404);
             }
