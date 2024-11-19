@@ -28,6 +28,9 @@ class OrderController extends Controller
                 $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('state','like',"%$name%");
             });
         });
+        $query->when($request->delivery_date,function (Builder $q) use ($request){
+                $q->where('delivery_date','=',$request->delivery_date);
+        });
 //        return ['data'=> $query->orderByDesc('id')->paginate($page) , 'analytics'=> \DB::getQueryLog()];
         return $query->orderByDesc('id')->paginate($page);
 
