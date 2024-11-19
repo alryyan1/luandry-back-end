@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderMeal;
 use App\Models\RequestedChildMeal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequestedChildMealController extends Controller
 {
@@ -47,7 +48,9 @@ class RequestedChildMealController extends Controller
 
             ]);
 
-            return ['status'=>$data,'order'=>$orderMeal->order->load('mealOrders'),'show'=>true];
+            return ['status'=>$data,'order'=>$orderMeal->order->load(['mealOrders','mealOrders'=>function ($q) {
+                $q->with('requestedChildMeals.orderMeal');
+            }]),'show'=>true];
 
     }
 
@@ -72,7 +75,7 @@ class RequestedChildMealController extends Controller
      */
     public function update(Request $request, RequestedChildMeal $requestedChildMeal)
     {
-        //
+        return ['status'=>$requestedChildMeal->update($request->all()),'order'=>$requestedChildMeal->orderMeal->order->load('mealOrders.meal'),'show'=>true];
     }
 
     /**

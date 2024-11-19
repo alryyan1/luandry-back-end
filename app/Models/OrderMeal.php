@@ -63,7 +63,7 @@ class OrderMeal extends Model
         $total = 0;
             foreach ($this->requestedChildMeals as $requestedMeal){
 //                return ['$requestedMeal'=>$requestedMeal];
-                $total += $requestedMeal->price ;
+                $total += $requestedMeal->price  * $requestedMeal->count;
             }
         return $total;
     }

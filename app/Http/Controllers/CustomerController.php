@@ -53,7 +53,8 @@ class CustomerController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
-            'address' => 'required|string|max:255',
+            'area' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
         ]);
 
         $customer = Customer::create($data);
@@ -84,7 +85,8 @@ class CustomerController extends Controller
         $data = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'phone' => 'sometimes|required|string|max:15',
-             'address'=> 'sometimes|required|string|max:255'
+             'area'=> 'sometimes|required|string|max:255',
+             'state'=> 'sometimes|required|string|max:255'
         ]);
 
         return ['status'=>$customer->update($data),'data'=>$customer->fresh()];
