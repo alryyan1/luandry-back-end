@@ -48,7 +48,7 @@ class ChildMealsTableSeeder extends Seeder
                 'id' => 3,
                 'meal_id' => 2,
                 'quantity' => 1,
-                'name' => 'WASH-NORMAL-AR غسيل وكسي سريع',
+                'name' => 'WASH-NORMAL-AR غسيل وكي سريع',
                 'created_at' => '2024-11-13 12:30:50',
                 'updated_at' => '2024-11-13 12:30:50',
                 'price' => 0.2,

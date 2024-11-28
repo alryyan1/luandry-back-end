@@ -28,9 +28,9 @@ return new class extends Migration
             $table->boolean('order_confirmed')->default(0);
             $table->string('delivery_address')->default('');
             $table->string('special_instructions')->default('');
-            $table->enum('status', ['pending', 'confirmed', 'in preparation', 'delivered', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'in preparation', 'Completed', 'delivered', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
-            $table->boolean('is_delivery')->default(true);
+            $table->boolean('is_delivery')->default(false);
             $table->decimal('delivery_fee', 8, 2)->default(0);
             $table->timestamps();
         });

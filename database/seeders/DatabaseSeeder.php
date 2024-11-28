@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create(['name'=>'roony', 'username'=>'admin-del','password'=>bcrypt('12345678')]);
-        Customer::create(['name'=>'default','phone'=>'','address'=>'']);
+        Customer::create(['name'=>'default','phone'=>'','address'=>'','area'=>'','state'=>'']);
 
         // \App\Models\User::factory(10)->create();
 
@@ -23,9 +23,10 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-//        $this->call(CategoriesTableSeeder::class);
-//        $this->call(MealsTableSeeder::class);
-//        $this->call(ChildMealsTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(MealsTableSeeder::class);
+        $this->call(ChildMealsTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
     }
 }

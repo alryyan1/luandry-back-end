@@ -8,14 +8,36 @@ use App\Exports\ExportOrder;
 use App\Models\Order;
 use App\Models\Meal;
 use App\Models\OrderMeal;
+use App\Models\Settings;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
+use Hamcrest\Core\Set;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
 
 class OrderController extends Controller
 {
+    public function pagination(Request $request, $page)
+    {
+//        \DB::enableQueryLog();
+        $query = Order::query();
+        $query->with('mealOrders.meal');
+        $name = $request->get('name');
+        $query->when($request->name,function (Builder $q) use ($name){
+            $q->whereHas('customer',function ( $q)  use($name){
+                $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('state','like',"%$name%");
+            });
+        });
+        $query->when($request->delivery_date,function (Builder $q) use ($request){
+                $q->where('delivery_date','=',$request->delivery_date);
+        });
+//        return ['data'=> $query->orderByDesc('id')->paginate($page) , 'analytics'=> \DB::getQueryLog()];
+        return $query->orderByDesc('id')->paginate($page);
+
+
+    }
     public function send(Request $request,Order $order)
     {
         if ($order->customer == null){
@@ -23,22 +45,36 @@ class OrderController extends Controller
         }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
-        $msg = <<<TEXT
-اهلاً وسهلاً ،
-اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
+//        $msg = <<<TEXT
+//اهلاً وسهلاً ،
+//اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
+//
+//
+//تكرماً : إيداع المبلغ لإعتماد الطلب
+//
+//0345043777450011
+//منى العيسائي
+//بنك مسقط
+//
+//تحويل سريع
+//95519234
+//
+//الفاتوره  $totalPrice ريال
+//TEXT;
 
+      return  Whatsapp::sendPdf($request->get('base64'),$order->customer->phone);
 
-تكرماً : إيداع المبلغ لإعتماد الطلب
-
-0345043777450011
-منى العيسائي
-بنك مسقط
-
-تحويل سريع
-95519234
-
-الفاتوره  $totalPrice ريال
-TEXT;
+    }
+    public function sendMsg(Request $request,Order $order)
+    {
+        if ($order->customer == null){
+            return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+        }
+        $meals_names = $order->orderMealsNames();
+        $totalPrice = $order->totalPrice();
+        /** @var Settings $settings */
+        $settings = Settings::first();
+        $msg = $settings->header_content;
 
       return  Whatsapp::sendMsgWb($order->customer->phone,$msg);
 
@@ -66,7 +102,9 @@ TEXT;
     {
         if ($request->query('today')) {
             $today = Carbon::today();
-            return Order::with('mealOrders.meal')->whereDate('created_at', $today)->orderByDesc('id')->get();
+            return Order::with(['mealOrders.meal','mealOrders'=>function ($q) {
+                $q->with('requestedChildMeals.orderMeal');
+            }])->whereDate('created_at', $today)->orderByDesc('id')->get();
 
         } else {
             return Order::with('mealOrders.meal')->orderByDesc('id')->get();
@@ -101,8 +139,12 @@ TEXT;
     public function update(Request $request, Order $order)
     {
 
-
-        if ($request->get('order_confirmed')){
+        if ($request->amount_paid > $order->totalPrice()){
+            return response()->json(['status'=>false,'message'=>'عمليه خاطئه'],404);
+        }
+        if ($request->get('order_confirmed')) {
+        }
+            if ($request->get('order_confirmed')){
 
             if ($order->customer == null){
                 return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
@@ -110,6 +152,8 @@ TEXT;
             if ($order->status == 'cancelled'){
                 return response()->json(['status'=>false,'message'=>'يجب تغيير حاله  اولا '],404);
             }
+//            return  $request->get('amount_paid');
+
 
             $order->amount_paid = $order->totalPrice();
             $order->status = 'confirmed';

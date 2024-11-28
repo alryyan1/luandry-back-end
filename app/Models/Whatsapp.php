@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 class Whatsapp extends Model
 {
     use HasFactory;
-    static string $token = 'r57rddxkl53qqdya';
-    static string $instance = 'instance99386';
+    static string $token = 'cu7a3uvkh3ad5txo';
+    static string $instance = 'instance100540';
     public static function sendMsgWb( $mobile, $msg)
     {
 
