@@ -203,7 +203,7 @@ class PDFController extends Controller
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, 80 , 5, 80, 30,align: 'C',fitbox: 1);
+            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1);
 
         }
 

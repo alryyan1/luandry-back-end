@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
+use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text;
 
 class OrderController extends Controller
 {
@@ -139,6 +140,17 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
 
+        if ($request->get('status')=='Completed'){
+            $name = $order->customer->name;
+            $msg = <<<Text
+ عزيزي العميل  $name
+ نفيدك باغراضك جاهزه للاستلام
+ نتمنى أن تكون الخدمة التي قدمناها قد نالت إعجابكم
+ شكرا لاختيارك لنا
+Text;
+
+            Whatsapp::sendMsgWb($order->customer->phone,$msg);
+        }
         if ($request->amount_paid > $order->totalPrice()){
             return response()->json(['status'=>false,'message'=>'عمليه خاطئه'],404);
         }

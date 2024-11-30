@@ -22,7 +22,7 @@ class ReservationController extends Controller
 
             $ordersMeals = $order->orderMealsNames();
             $name = $order?->customer?->name;
-            $address = $order?->customer?->address;
+            $address = $order?->customer?->area . ' '. $order?->customer?->state . ' ';
             $phone = $order?->customer?->phone;
             $status = $order?->status;
             $message = <<<TEXT
