@@ -88,7 +88,7 @@ class OrderController extends Controller
         $pdo = \DB::getPdo();
         $date =  $request->get('date');
 //        $query = ;
-        $data =  $pdo->query("SELECT meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity) as totalQuantity FROM `requested_child_meals`
+        $data =  $pdo->query("SELECT meals.name as mealName, child_meals.name as childName,   SUM(requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
     JOIN child_meals  on child_meals.id = requested_child_meals.child_meal_id
     join order_meals  on order_meals.id = requested_child_meals.order_meal_id
     join meals  on meals.id = child_meals.meal_id
