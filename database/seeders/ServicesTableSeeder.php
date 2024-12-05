@@ -32,7 +32,7 @@ class ServicesTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'name' => 'WASH-NORMAL-AR غسيل وكي سريع',
+                'name' => 'WASH-NORMAL غسيل و كي',
             ),
             3 => 
             array (
@@ -43,6 +43,11 @@ class ServicesTableSeeder extends Seeder
             array (
                 'id' => 5,
                 'name' => 'IRON كي',
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'name' => 'WASH-NORMAL-AR غسيل وكي سريع',
             ),
         ));
         

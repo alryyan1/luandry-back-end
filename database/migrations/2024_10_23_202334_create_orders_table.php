@@ -31,6 +31,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'confirmed', 'in preparation', 'Completed', 'delivered', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->boolean('is_delivery')->default(false);
+            $table->boolean('whatsapp')->default(false);
             $table->decimal('delivery_fee', 8, 2)->default(0);
             $table->timestamps();
         });

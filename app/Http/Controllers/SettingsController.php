@@ -15,7 +15,7 @@ class SettingsController extends Controller
             Settings::create();
         }
 
-        return ['result'=> Settings::all()->first()->update([$data['colName']=>$data['data']])];
+        return ['result'=> Settings::all()->first()->update([$data['colName']=>$data['data']]),'show'=>true];
     }
     public function index(Request $request){
 
