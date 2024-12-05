@@ -28,8 +28,11 @@ class OrderController extends Controller
         $name = $request->get('name');
         $query->when($request->name,function (Builder $q) use ($name){
             $q->whereHas('customer',function ( $q)  use($name){
-                $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('state','like',"%$name%");
+                $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('phone','like',"%$name%")->orWhere('state','like',"%$name%");
             });
+        });
+        $query->when($request->status,function (Builder $q) use ($request) {
+                $q->where('status','=',$request->status);
         });
         $query->when($request->delivery_date,function (Builder $q) use ($request){
                 $q->where('delivery_date','=',$request->delivery_date);

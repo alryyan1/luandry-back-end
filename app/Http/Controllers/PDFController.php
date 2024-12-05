@@ -270,7 +270,11 @@ class PDFController extends Controller
         $pdf->SetDrawColor(0, 0, 0); // Black border
         $pdf->SetFillColor(255, 200, 200); // Light red fill
         $index = 1 ;
-        $pdf->Cell($page_width,5,'الخدمات ','B',1,fill: 0);
+        $colWidth = $page_width/3;
+
+        $pdf->Cell($colWidth * 2,5,'Name ','B',0,fill: 0);
+        $pdf->Cell($colWidth/2,5,' ','B',0,fill: 0);
+        $pdf->Cell($colWidth/2,5,'QYN ','B',1,fill: 0);
 
         /** @var OrderMeal $orderMeal */
         foreach ($order->mealOrders as $orderMeal){
@@ -285,18 +289,21 @@ class PDFController extends Controller
 
             $pdf->SetFillColor(187, 222, 251); // Light red fill
             $pdf->Cell(5,5,$index ,1,0,fill: 1,stretch: 1);
+            $colWidth = $page_width /3;
+            $pdf->Cell($colWidth * 2.3 ,5,$orderMeal->meal->name,1,0,fill: 1);
+//            $pdf->Cell($colWidth/2,5,' ','TB',0,fill: 1);
+            $pdf->Cell(($colWidth/2) - 0.5,5, $orderMeal->quantity,1,1,fill: 1,align: 'C');
+            $colWidth = $page_width/3;
 
-            $pdf->Cell($page_width - 5,5,$orderMeal->meal->name,1,1,fill: 1,stretch: 1);
-            $colWidth = $page_width/2;
-
-            $pdf->Cell($colWidth*1.5,5,'Service ',0,0,fill: 0);
-//            $pdf->Cell($colWidth/2,5,' Count',0,0,fill: 0);
-            $pdf->Cell($colWidth/2,5,'Price ',0,1,fill: 0);
+            $pdf->Cell($colWidth*2,5,'Service ','B',0,fill: 0);
+            $pdf->Cell($colWidth/2,5,' ','B',0,fill: 0);
+            $pdf->Cell($colWidth/2,5,'Price ','B',1,fill: 0);
             /** @var RequestedChildMeal $requestedChildMeal */
             foreach ($orderMeal->requestedChildMeals as $requestedChildMeal){
-                $pdf->Cell($colWidth*1.5,5,$requestedChildMeal->childMeal->name,0,0,fill: 0);
-//                $pdf->Cell($colWidth/2,5,$requestedChildMeal->quantity,0,0,fill: 0);
-                $pdf->Cell($colWidth/2,5,$requestedChildMeal->price,0,1,fill: 0);
+                $pdf->Cell($colWidth*2,5,$requestedChildMeal->childMeal->name,'B',0,fill: 0);
+                $pdf->Cell($colWidth/2,5,'','B',0,fill: 0); //comment this line if using del-pasta
+//                $pdf->Cell($colWidth/2,5,$requestedChildMeal->quantity,0,0,fill: 0); //del pasta
+                $pdf->Cell($colWidth/2,5,$requestedChildMeal->price,'B',1,fill: 0,align: 'C');
 
             }
             $index++;
