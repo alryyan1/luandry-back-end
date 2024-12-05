@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('child_meals', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Meal::class)->constrained();
-            $table->integer('quantity')->default(1);
             $table->string('name');
-            $table->timestamps();
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('child_meals');
+        Schema::dropIfExists('services');
     }
 };

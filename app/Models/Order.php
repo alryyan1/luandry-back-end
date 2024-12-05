@@ -94,7 +94,7 @@ class Order extends Model
         /** @var OrderMeal $mealOrder */
         foreach ($this->mealOrders as $mealOrder){
 //                return ['$requestedMeal'=>$requestedMeal];
-                $total += $mealOrder->totalPrice() ;
+                $total += $mealOrder->totalPrice()  * $mealOrder->quantity; ;
         }
         $total+= $this->delivery_fee;
         return $total;

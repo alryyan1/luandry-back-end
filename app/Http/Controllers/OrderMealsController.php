@@ -10,30 +10,38 @@ use Illuminate\Http\Request;
 
 class OrderMealsController extends Controller
 {
-    public function ordersInfoGraphic()
+    public function ordersInfoGraphic(Request $request)
     {
 //        \DB::enableQueryLog();
 
 
-        $today =  Carbon::today();
-       $lastWeek =  Carbon::today()->subDays(7);
-       $data=  Order::select([
-            \DB::raw('DATE(created_at) as date'),
-            \DB::raw('SUM(amount_paid) as amount_paid'),
-            \DB::raw('COUNT(id) as id_count')
-        ])
-            ->whereRaw("DATE(created_at) BETWEEN ? AND ?", [$lastWeek, $today])
-            ->groupBy('date')
-            ->get();
-       $new_data = [];
-       foreach ($data as $d){
-           $innerArray = [
-             'name'=>Carbon::parse($d->date)->format('l'),
-             'sales'=>$d->amount_paid
-           ];
-           $new_data[] = $innerArray;
-       }
-       return $new_data;
+        $month = $request->get('month');
+        $from =  Carbon::now();
+        $to =  Carbon::now();
+        $day_of_month =  $from->setMonth($month)->startOfMonth();
+        $end_of_month =  $to->setMonth($month)->endOfMonth();
+        $outter = [];
+
+        while ($day_of_month <= $end_of_month) {
+            $new_data = [];
+
+            $begin_of_day = $day_of_month->copy()->format('Y-m-d');;
+            $data=  Order::whereRaw("DATE(created_at) = ? ", [$begin_of_day])
+                ->get();
+            $total_sales = 0;
+            /** @var Order $d */
+            foreach ($data as $d){
+
+                $total_sales += $d->totalPrice();
+            }
+            array_push($outter, [
+                'name'=>$day_of_month->format('d'),
+                'sales'=>$total_sales
+            ]);
+            $day_of_month->addDay(1);
+        }
+
+       return $outter;
     }
 
     /**
@@ -94,7 +102,9 @@ class OrderMealsController extends Controller
     public function update(Request $request, OrderMeal $orderMeal)
     {
         $order = $orderMeal->order;
-        if ($order->order_confirmed){
+
+
+        if ($order->order_confirmed ){
             return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);
         }
 

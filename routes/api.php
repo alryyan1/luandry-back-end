@@ -41,7 +41,9 @@ Route::apiResource('reservations', ReservationController::class);
 Route::apiResource('childMeals', \App\Http\Controllers\ChildMealController::class);
 Route::post('settings',[SettingsController::class,'update']);
 Route::get('settings',[SettingsController::class,'index']);
-
+Route::get('services',[\App\Http\Controllers\ServiceController::class,'index']);
+Route::post('services',[\App\Http\Controllers\ServiceController::class,'store']);
+Route::post('defineServices/{meal}',[\App\Http\Controllers\ServiceController::class,'defineServices']);
 Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store']);
@@ -52,8 +54,9 @@ Route::middleware('auth:sanctum')->group(function (){
 
 });
 Route::post('orderConfirmed/{order}',[OrderController::class,'orderConfirmed']);
-Route::get('orders/pagination/{page}',[OrderController::class,'pagination']);
+Route::post('orders/pagination/{page}',[OrderController::class,'pagination']);
 
 Route::get('/printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('orderMealsStats',[\App\Http\Controllers\OrderController::class,'orderMealsStats']);
 Route::post('send/{order}',[\App\Http\Controllers\OrderController::class,'send']);
+Route::post('sendMsg/{order}',[\App\Http\Controllers\OrderController::class,'sendMsg']);

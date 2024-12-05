@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('child_meals', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\Meal::class)->constrained();
-            $table->integer('quantity')->default(1);
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('order_meals', function (Blueprint $table) {
+            $table->string('color')->nullable();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('child_meals');
+        Schema::table('order_meals', function (Blueprint $table) {
+            $table->dropColumn('color');
+        });
     }
 };

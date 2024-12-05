@@ -55,7 +55,8 @@ class ChildMealController extends Controller
      */
     public function update(Request $request, ChildMeal $childMeal)
     {
-        return $childMeal->update($request->all());
+        $result = $childMeal->update($request->all());
+        return ['data'=>$childMeal->meal,  'result'=>$result];
     }
 
     /**

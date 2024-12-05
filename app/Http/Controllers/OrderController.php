@@ -8,12 +8,15 @@ use App\Exports\ExportOrder;
 use App\Models\Order;
 use App\Models\Meal;
 use App\Models\OrderMeal;
+use App\Models\Settings;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
+use Hamcrest\Core\Set;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
+use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text;
 
 class OrderController extends Controller
 {
@@ -25,8 +28,11 @@ class OrderController extends Controller
         $name = $request->get('name');
         $query->when($request->name,function (Builder $q) use ($name){
             $q->whereHas('customer',function ( $q)  use($name){
-                $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('state','like',"%$name%");
+                $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('phone','like',"%$name%")->orWhere('state','like',"%$name%");
             });
+        });
+        $query->when($request->status,function (Builder $q) use ($request) {
+                $q->where('status','=',$request->status);
         });
         $query->when($request->delivery_date,function (Builder $q) use ($request){
                 $q->where('delivery_date','=',$request->delivery_date);
@@ -43,22 +49,36 @@ class OrderController extends Controller
         }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
-        $msg = <<<TEXT
-اهلاً وسهلاً ،
-اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
+//        $msg = <<<TEXT
+//اهلاً وسهلاً ،
+//اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
+//
+//
+//تكرماً : إيداع المبلغ لإعتماد الطلب
+//
+//0345043777450011
+//منى العيسائي
+//بنك مسقط
+//
+//تحويل سريع
+//95519234
+//
+//الفاتوره  $totalPrice ريال
+//TEXT;
 
+      return  Whatsapp::sendPdf($request->get('base64'),$order->customer->phone);
 
-تكرماً : إيداع المبلغ لإعتماد الطلب
-
-0345043777450011
-منى العيسائي
-بنك مسقط
-
-تحويل سريع
-95519234
-
-الفاتوره  $totalPrice ريال
-TEXT;
+    }
+    public function sendMsg(Request $request,Order $order)
+    {
+        if ($order->customer == null){
+            return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+        }
+        $meals_names = $order->orderMealsNames();
+        $totalPrice = $order->totalPrice();
+        /** @var Settings $settings */
+        $settings = Settings::first();
+        $msg = $settings->header_content;
 
       return  Whatsapp::sendMsgWb($order->customer->phone,$msg);
 
@@ -123,10 +143,23 @@ TEXT;
     public function update(Request $request, Order $order)
     {
 
+        if ($request->get('status')=='Completed'){
+            $name = $order->customer->name;
+            $msg = <<<Text
+ عزيزي العميل  $name
+ نفيدك باغراضك جاهزه للاستلام
+ نتمنى أن تكون الخدمة التي قدمناها قد نالت إعجابكم
+ شكرا لاختيارك لنا
+Text;
+
+            Whatsapp::sendMsgWb($order->customer->phone,$msg);
+        }
         if ($request->amount_paid > $order->totalPrice()){
             return response()->json(['status'=>false,'message'=>'عمليه خاطئه'],404);
         }
-        if ($request->get('order_confirmed')){
+        if ($request->get('order_confirmed')) {
+        }
+            if ($request->get('order_confirmed')){
 
             if ($order->customer == null){
                 return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'completed', 'cancelled','on_progress'])->default('pending');
             $table->integer('quantity');
             $table->double('price');
-            $table->unique(['order_id', 'meal_id']);
+//            $table->unique(['order_id', 'meal_id']);
             $table->timestamps();
         });
     }
