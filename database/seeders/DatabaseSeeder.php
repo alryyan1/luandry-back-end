@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +18,17 @@ class DatabaseSeeder extends Seeder
     {
         User::create(['name'=>'roony', 'username'=>'admin-del','password'=>bcrypt('12345678')]);
         Customer::create(['name'=>'default','phone'=>'','address'=>'','area'=>'','state'=>'']);
+        $role = Role::create(['name' => 'admin']);
+        $staff = Role::create(['name' => 'staff']);
+
+        $add_user_permission = Permission::create(['name' => 'add user']);
+        $discount_permission = Permission::create(['name' => 'discount']);
+        $cacnel_permission = Permission::create(['name' => 'cancel']);
+
+        $role->givePermissionTo([$add_user_permission,$discount_permission,$cacnel_permission]);
+        $user = User::find(1);
+        $user->assignRole('admin');
+
 
         // \App\Models\User::factory(10)->create();
 

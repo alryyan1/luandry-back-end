@@ -25,6 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereUpdatedAt($value)
  * @property string $address
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereAddress($value)
+ * @property string $area
+ * @property string $state
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereArea($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereState($value)
  * @mixin \Eloquent
  */
 class Customer extends Model

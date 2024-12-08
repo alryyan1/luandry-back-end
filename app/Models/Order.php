@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $customer_id
@@ -59,6 +59,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $cost
  * @property-read mixed $total_price
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCost($value)
+ * @property string $receipt_location
+ * @property string|null $delivery_time
+ * @property int $whatsapp
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereReceiptLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereWhatsapp($value)
  * @mixin \Eloquent
  */
 class Order extends Model

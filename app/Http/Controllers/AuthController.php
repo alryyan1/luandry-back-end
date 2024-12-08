@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\SignUpRequest;
+use App\Http\Requests\SignupRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -12,12 +12,16 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
 
-    public function signup(SignUpRequest $request){
+    public function users()
+    {
+        return User::all();
+    }
+    public function signup(SignupRequest $request){
 
         $data = $request->validated();
-        $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password'])]);
+        $user =  User::create(['name'=>$data['name'],'username'=>$data['username'],'password'=>bcrypt($data['password'])]);
         $token =      $user->createToken('main')->plainTextToken;
-        return ['status'=>true,'user'=>$user->load('sub_routes') , 'token'=>$token];
+        return ['status'=>true,'user'=>$user->fresh() , 'token'=>$token];
     }
     public function login(LoginRequest $request){
 //        return $request->all();
