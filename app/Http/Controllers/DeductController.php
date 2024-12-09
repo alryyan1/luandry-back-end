@@ -16,7 +16,9 @@ class DeductController extends Controller
         \DB::beginTransaction();
         if (!$request->add){
 
-            return ['show'=>Deduct::where('order_id','=',$order->id)->delete(),'order'=>$order->fresh()];
+        $result =$order->deducts()->delete();
+            \DB::commit();
+            return ['show'=>$result,'order'=>$order->fresh(),'rm'=>true];
         }
          /** @var OrderMeal $mealOrder */
         foreach ($order->mealOrders as $mealOrder){

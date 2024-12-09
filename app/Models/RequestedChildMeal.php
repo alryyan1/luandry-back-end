@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $order_meal_id
@@ -33,7 +33,7 @@ class RequestedChildMeal extends Model
     protected $guarded = [];
     public $timestamps = false;
     protected $with = ['childMeal'];
-    protected $appends =['available'];
+    protected $appends =['available','deducted'];
     use HasFactory;
     public function orderMeal()
     {
@@ -42,6 +42,9 @@ class RequestedChildMeal extends Model
     public function getAvailableAttribute()
     {
         return Deposit::where('child_meal_id','=',$this->child_meal_id)->sum('quantity');
+    } public function getDeductedAttribute()
+    {
+        return Deduct::where('child_meal_id','=',$this->child_meal_id)->sum('quantity');
     }
 
 
