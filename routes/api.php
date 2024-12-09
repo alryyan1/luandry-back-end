@@ -61,3 +61,4 @@ Route::get('orderMealsStats',[\App\Http\Controllers\OrderController::class,'orde
 Route::post('send/{order}',[\App\Http\Controllers\OrderController::class,'send']);
 Route::post('sendMsg/{order}',[\App\Http\Controllers\OrderController::class,'sendMsg']);
 Route::post('deposits',[\App\Http\Controllers\DepositController::class,'store']);
+Route::post('deducts/{order}',[\App\Http\Controllers\DeductController::class,'store']);

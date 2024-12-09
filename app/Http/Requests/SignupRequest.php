@@ -23,9 +23,8 @@ class SignupRequest extends FormRequest
     {
         return [
             'name'=>'required|string',
-            'username'=>'required|string|min:6|unique:users',
-            'password'=>'required|confirmed|min:6',
-            'user_type'=>'required|in:admin,staff',
+            'username'=>'required|string|min:4|unique:users',
+            'password'=>'required|confirmed|min:4',
 
         ];
     }

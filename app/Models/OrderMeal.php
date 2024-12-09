@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $order_id
@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|OrderMeal wherePrice($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedChildMeal> $requestedChildMeals
  * @property-read int|null $requested_child_meals_count
+ * @property string|null $color
+ * @property-read mixed $total_price
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderMeal whereColor($value)
  * @mixin \Eloquent
  */
 class OrderMeal extends Model

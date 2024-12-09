@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deducted_items', function (Blueprint $table) {
+        Schema::create('deducted_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\ChildMeal::class)->constrained();
-            $table->integer('quantity');
+            $table->foreignIdFor(\App\Models\Order::class)->constrained();
             $table->timestamps();
         });
     }
@@ -24,6 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deducted_items');
+        Schema::dropIfExists('deducted_orders');
+
     }
 };

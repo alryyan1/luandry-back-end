@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $user_cost
@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereUserCost($value)
+ * @property int|null $supplier_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CostItem> $costItem
+ * @property-read int|null $cost_item_count
+ * @property-read \App\Models\Supplier|null $supplier
+ * @method static \Illuminate\Database\Eloquent\Builder|Cost whereSupplierId($value)
  * @mixin \Eloquent
  */
 class Cost extends Model
