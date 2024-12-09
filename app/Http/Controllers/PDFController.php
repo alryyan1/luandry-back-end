@@ -195,7 +195,7 @@ class PDFController extends Controller
         $pdf->setMargins(0, 0, 10);
 //        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
 //        $pdf->setFooterMargin(0);
-        $page_width = 70;
+        $page_width = 65;
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
@@ -208,7 +208,7 @@ class PDFController extends Controller
         }
 
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 0, 5);
+        $pdf->setMargins(5, 0, 10);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
@@ -338,10 +338,12 @@ class PDFController extends Controller
         $cols = $page_width / 3;
         $y = $pdf->GetY();
 
+        $pdf->SetFont($arial, '', 15, '', true);
 
         $pdf->Cell($cols,5,'المجموع','TB',0,'C',fill: 0);
         $pdf->Cell($cols,5,$order->totalPrice() ,'TB' ,0,'C',0);
         $pdf->Cell($cols ,5,'Total','TB',1,'C',fill: 0);
+        $pdf->SetFont($arial, '', 10, '', true);
 
         $pdf->Cell($cols,5,'المدفوع','TB',0,'C',fill: 0);
         $pdf->Cell($cols,5,$order->amount_paid ,'TB' ,0,'C',0);
