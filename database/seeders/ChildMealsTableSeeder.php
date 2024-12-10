@@ -14,12 +14,12 @@ class ChildMealsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('child_meals')->delete();
-        
+
         \DB::table('child_meals')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 6,
                 'meal_id' => 9,
@@ -31,7 +31,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 26,
                 'meal_id' => 16,
@@ -43,7 +43,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 27,
                 'meal_id' => 16,
@@ -55,7 +55,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 29,
                 'meal_id' => 16,
@@ -67,7 +67,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 30,
                 'meal_id' => 16,
@@ -79,7 +79,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 46,
                 'meal_id' => 15,
@@ -91,7 +91,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 47,
                 'meal_id' => 15,
@@ -103,7 +103,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 48,
                 'meal_id' => 15,
@@ -115,7 +115,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 49,
                 'meal_id' => 15,
@@ -127,7 +127,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 50,
                 'meal_id' => 15,
@@ -139,7 +139,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 53,
                 'meal_id' => 17,
@@ -151,7 +151,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 54,
                 'meal_id' => 17,
@@ -163,7 +163,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 66,
                 'meal_id' => 19,
@@ -175,7 +175,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 67,
                 'meal_id' => 19,
@@ -187,7 +187,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 68,
                 'meal_id' => 19,
@@ -199,7 +199,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 69,
                 'meal_id' => 19,
@@ -211,7 +211,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 70,
                 'meal_id' => 19,
@@ -223,7 +223,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 71,
                 'meal_id' => 19,
@@ -235,7 +235,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 72,
                 'meal_id' => 20,
@@ -247,7 +247,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 73,
                 'meal_id' => 20,
@@ -259,7 +259,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 74,
                 'meal_id' => 20,
@@ -271,7 +271,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 75,
                 'meal_id' => 20,
@@ -283,7 +283,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 76,
                 'meal_id' => 20,
@@ -295,7 +295,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 77,
                 'meal_id' => 20,
@@ -307,7 +307,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 78,
                 'meal_id' => 21,
@@ -319,7 +319,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 79,
                 'meal_id' => 21,
@@ -331,7 +331,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 80,
                 'meal_id' => 21,
@@ -343,7 +343,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 81,
                 'meal_id' => 21,
@@ -355,7 +355,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 82,
                 'meal_id' => 21,
@@ -367,7 +367,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 83,
                 'meal_id' => 21,
@@ -379,7 +379,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 85,
                 'meal_id' => 18,
@@ -391,7 +391,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 86,
                 'meal_id' => 18,
@@ -403,7 +403,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 87,
                 'meal_id' => 18,
@@ -415,7 +415,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 89,
                 'meal_id' => 18,
@@ -427,7 +427,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 90,
                 'meal_id' => 22,
@@ -439,7 +439,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 92,
                 'meal_id' => 22,
@@ -451,7 +451,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 94,
                 'meal_id' => 22,
@@ -463,7 +463,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 95,
                 'meal_id' => 22,
@@ -475,7 +475,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 96,
                 'meal_id' => 23,
@@ -487,7 +487,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 97,
                 'meal_id' => 23,
@@ -499,7 +499,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 99,
                 'meal_id' => 23,
@@ -511,7 +511,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 100,
                 'meal_id' => 23,
@@ -523,7 +523,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 110,
                 'meal_id' => 24,
@@ -535,7 +535,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 113,
                 'meal_id' => 24,
@@ -547,7 +547,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 114,
                 'meal_id' => 25,
@@ -559,7 +559,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 115,
                 'meal_id' => 25,
@@ -571,7 +571,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 116,
                 'meal_id' => 25,
@@ -583,7 +583,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 117,
                 'meal_id' => 25,
@@ -595,7 +595,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 118,
                 'meal_id' => 25,
@@ -607,7 +607,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 119,
                 'meal_id' => 25,
@@ -619,7 +619,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 120,
                 'meal_id' => 26,
@@ -631,7 +631,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 121,
                 'meal_id' => 26,
@@ -643,7 +643,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 122,
                 'meal_id' => 26,
@@ -655,7 +655,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 123,
                 'meal_id' => 26,
@@ -667,7 +667,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 124,
                 'meal_id' => 26,
@@ -679,7 +679,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 125,
                 'meal_id' => 26,
@@ -691,7 +691,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 126,
                 'meal_id' => 27,
@@ -703,7 +703,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 127,
                 'meal_id' => 27,
@@ -715,7 +715,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 128,
                 'meal_id' => 27,
@@ -727,7 +727,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 129,
                 'meal_id' => 27,
@@ -739,7 +739,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 130,
                 'meal_id' => 27,
@@ -751,7 +751,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 132,
                 'meal_id' => 28,
@@ -763,7 +763,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 133,
                 'meal_id' => 28,
@@ -775,7 +775,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 134,
                 'meal_id' => 28,
@@ -787,7 +787,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 135,
                 'meal_id' => 28,
@@ -799,7 +799,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 136,
                 'meal_id' => 28,
@@ -811,7 +811,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 137,
                 'meal_id' => 28,
@@ -823,7 +823,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 140,
                 'meal_id' => 29,
@@ -835,7 +835,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 143,
                 'meal_id' => 29,
@@ -847,7 +847,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 146,
                 'meal_id' => 30,
@@ -859,7 +859,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 152,
                 'meal_id' => 31,
@@ -871,7 +871,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 158,
                 'meal_id' => 32,
@@ -883,7 +883,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            72 => 
+            72 =>
             array (
                 'id' => 162,
                 'meal_id' => 33,
@@ -895,7 +895,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            73 => 
+            73 =>
             array (
                 'id' => 163,
                 'meal_id' => 33,
@@ -907,7 +907,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            74 => 
+            74 =>
             array (
                 'id' => 165,
                 'meal_id' => 33,
@@ -919,7 +919,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            75 => 
+            75 =>
             array (
                 'id' => 166,
                 'meal_id' => 33,
@@ -931,7 +931,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            76 => 
+            76 =>
             array (
                 'id' => 170,
                 'meal_id' => 34,
@@ -943,7 +943,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            77 => 
+            77 =>
             array (
                 'id' => 173,
                 'meal_id' => 34,
@@ -955,7 +955,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            78 => 
+            78 =>
             array (
                 'id' => 174,
                 'meal_id' => 12,
@@ -967,7 +967,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            79 => 
+            79 =>
             array (
                 'id' => 176,
                 'meal_id' => 12,
@@ -979,7 +979,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            80 => 
+            80 =>
             array (
                 'id' => 178,
                 'meal_id' => 12,
@@ -991,7 +991,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            81 => 
+            81 =>
             array (
                 'id' => 179,
                 'meal_id' => 12,
@@ -1003,7 +1003,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            82 => 
+            82 =>
             array (
                 'id' => 182,
                 'meal_id' => 37,
@@ -1015,7 +1015,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            83 => 
+            83 =>
             array (
                 'id' => 188,
                 'meal_id' => 38,
@@ -1027,7 +1027,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            84 => 
+            84 =>
             array (
                 'id' => 193,
                 'meal_id' => 14,
@@ -1039,7 +1039,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            85 => 
+            85 =>
             array (
                 'id' => 194,
                 'meal_id' => 14,
@@ -1051,7 +1051,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            86 => 
+            86 =>
             array (
                 'id' => 195,
                 'meal_id' => 14,
@@ -1063,7 +1063,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            87 => 
+            87 =>
             array (
                 'id' => 197,
                 'meal_id' => 14,
@@ -1075,7 +1075,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            88 => 
+            88 =>
             array (
                 'id' => 199,
                 'meal_id' => 13,
@@ -1087,7 +1087,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            89 => 
+            89 =>
             array (
                 'id' => 200,
                 'meal_id' => 13,
@@ -1099,7 +1099,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            90 => 
+            90 =>
             array (
                 'id' => 201,
                 'meal_id' => 13,
@@ -1111,7 +1111,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            91 => 
+            91 =>
             array (
                 'id' => 203,
                 'meal_id' => 13,
@@ -1123,7 +1123,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            92 => 
+            92 =>
             array (
                 'id' => 206,
                 'meal_id' => 39,
@@ -1135,7 +1135,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            93 => 
+            93 =>
             array (
                 'id' => 210,
                 'meal_id' => 51,
@@ -1147,7 +1147,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            94 => 
+            94 =>
             array (
                 'id' => 211,
                 'meal_id' => 51,
@@ -1159,7 +1159,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            95 => 
+            95 =>
             array (
                 'id' => 212,
                 'meal_id' => 51,
@@ -1171,7 +1171,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            96 => 
+            96 =>
             array (
                 'id' => 213,
                 'meal_id' => 51,
@@ -1183,7 +1183,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            97 => 
+            97 =>
             array (
                 'id' => 214,
                 'meal_id' => 51,
@@ -1195,7 +1195,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            98 => 
+            98 =>
             array (
                 'id' => 215,
                 'meal_id' => 51,
@@ -1207,7 +1207,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            99 => 
+            99 =>
             array (
                 'id' => 216,
                 'meal_id' => 42,
@@ -1219,7 +1219,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            100 => 
+            100 =>
             array (
                 'id' => 217,
                 'meal_id' => 42,
@@ -1231,7 +1231,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            101 => 
+            101 =>
             array (
                 'id' => 218,
                 'meal_id' => 42,
@@ -1243,7 +1243,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            102 => 
+            102 =>
             array (
                 'id' => 219,
                 'meal_id' => 42,
@@ -1255,7 +1255,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            103 => 
+            103 =>
             array (
                 'id' => 220,
                 'meal_id' => 42,
@@ -1267,7 +1267,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            104 => 
+            104 =>
             array (
                 'id' => 221,
                 'meal_id' => 42,
@@ -1279,7 +1279,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            105 => 
+            105 =>
             array (
                 'id' => 222,
                 'meal_id' => 11,
@@ -1291,7 +1291,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            106 => 
+            106 =>
             array (
                 'id' => 223,
                 'meal_id' => 11,
@@ -1303,7 +1303,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            107 => 
+            107 =>
             array (
                 'id' => 224,
                 'meal_id' => 11,
@@ -1315,7 +1315,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            108 => 
+            108 =>
             array (
                 'id' => 225,
                 'meal_id' => 11,
@@ -1327,7 +1327,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            109 => 
+            109 =>
             array (
                 'id' => 226,
                 'meal_id' => 11,
@@ -1339,7 +1339,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            110 => 
+            110 =>
             array (
                 'id' => 227,
                 'meal_id' => 11,
@@ -1351,7 +1351,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            111 => 
+            111 =>
             array (
                 'id' => 229,
                 'meal_id' => 9,
@@ -1363,7 +1363,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            112 => 
+            112 =>
             array (
                 'id' => 231,
                 'meal_id' => 9,
@@ -1375,7 +1375,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            113 => 
+            113 =>
             array (
                 'id' => 232,
                 'meal_id' => 9,
@@ -1387,7 +1387,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            114 => 
+            114 =>
             array (
                 'id' => 236,
                 'meal_id' => 5,
@@ -1399,7 +1399,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            115 => 
+            115 =>
             array (
                 'id' => 241,
                 'meal_id' => 8,
@@ -1411,7 +1411,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            116 => 
+            116 =>
             array (
                 'id' => 242,
                 'meal_id' => 8,
@@ -1423,7 +1423,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            117 => 
+            117 =>
             array (
                 'id' => 243,
                 'meal_id' => 8,
@@ -1435,7 +1435,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            118 => 
+            118 =>
             array (
                 'id' => 245,
                 'meal_id' => 8,
@@ -1447,7 +1447,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            119 => 
+            119 =>
             array (
                 'id' => 248,
                 'meal_id' => 7,
@@ -1459,7 +1459,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            120 => 
+            120 =>
             array (
                 'id' => 251,
                 'meal_id' => 7,
@@ -1471,7 +1471,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            121 => 
+            121 =>
             array (
                 'id' => 252,
                 'meal_id' => 48,
@@ -1483,7 +1483,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            122 => 
+            122 =>
             array (
                 'id' => 253,
                 'meal_id' => 48,
@@ -1495,7 +1495,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            123 => 
+            123 =>
             array (
                 'id' => 254,
                 'meal_id' => 48,
@@ -1507,7 +1507,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            124 => 
+            124 =>
             array (
                 'id' => 256,
                 'meal_id' => 48,
@@ -1519,7 +1519,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            125 => 
+            125 =>
             array (
                 'id' => 258,
                 'meal_id' => 49,
@@ -1531,7 +1531,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            126 => 
+            126 =>
             array (
                 'id' => 259,
                 'meal_id' => 49,
@@ -1543,7 +1543,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            127 => 
+            127 =>
             array (
                 'id' => 261,
                 'meal_id' => 49,
@@ -1555,7 +1555,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            128 => 
+            128 =>
             array (
                 'id' => 262,
                 'meal_id' => 49,
@@ -1567,7 +1567,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            129 => 
+            129 =>
             array (
                 'id' => 264,
                 'meal_id' => 50,
@@ -1579,7 +1579,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            130 => 
+            130 =>
             array (
                 'id' => 266,
                 'meal_id' => 50,
@@ -1591,7 +1591,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            131 => 
+            131 =>
             array (
                 'id' => 268,
                 'meal_id' => 50,
@@ -1603,7 +1603,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            132 => 
+            132 =>
             array (
                 'id' => 269,
                 'meal_id' => 50,
@@ -1615,7 +1615,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            133 => 
+            133 =>
             array (
                 'id' => 270,
                 'meal_id' => 2,
@@ -1627,7 +1627,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            134 => 
+            134 =>
             array (
                 'id' => 271,
                 'meal_id' => 2,
@@ -1639,7 +1639,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            135 => 
+            135 =>
             array (
                 'id' => 272,
                 'meal_id' => 2,
@@ -1651,7 +1651,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            136 => 
+            136 =>
             array (
                 'id' => 273,
                 'meal_id' => 2,
@@ -1663,7 +1663,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            137 => 
+            137 =>
             array (
                 'id' => 274,
                 'meal_id' => 2,
@@ -1675,7 +1675,7 @@ class ChildMealsTableSeeder extends Seeder
                 'people_count' => '1',
                 'weight' => NULL,
             ),
-            138 => 
+            138 =>
             array (
                 'id' => 275,
                 'meal_id' => 2,
@@ -1688,7 +1688,7 @@ class ChildMealsTableSeeder extends Seeder
                 'weight' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

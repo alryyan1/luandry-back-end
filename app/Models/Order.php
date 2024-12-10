@@ -61,16 +61,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCost($value)
  * @property string $receipt_location
  * @property string|null $delivery_time
- * @property int $whatsapp
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereReceiptLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereWhatsapp($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deduct> $deducts
+ * @property-read int|null $deducts_count
  * @mixin \Eloquent
  */
 class Order extends Model
 {
-    protected $with = ['mealOrders','customer'];
+    protected $with = ['mealOrders','customer','deducts'];
     protected $guarded = ['id'];
     public function user()
     {
@@ -114,5 +114,10 @@ class Order extends Model
     public function mealOrders()
     {
         return $this->hasMany(OrderMeal::class);
+    }
+
+    public function deducts()
+    {
+        return $this->hasMany(Deduct::class);
     }
 }

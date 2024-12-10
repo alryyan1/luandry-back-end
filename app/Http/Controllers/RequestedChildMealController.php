@@ -43,7 +43,7 @@ class RequestedChildMealController extends Controller
             $data =RequestedChildMeal::create([
                 'order_meal_id' => $orderMeal->id,
                  'child_meal_id' =>$childMeal->id,
-                 'quantity' => 1,
+                 'quantity' => $childMeal->quantity,
                  'price' => $childMeal->price,
 
             ]);

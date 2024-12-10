@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('discount')->default(0);
             $table->double('amount_paid',11,3)->default(0);
             $table->foreignIdFor(User::class);
-            $table->string('notes')->default('');
+            $table->string('notes')->nullable()->default('');
             $table->date('delivery_date')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->boolean('order_confirmed')->default(0);

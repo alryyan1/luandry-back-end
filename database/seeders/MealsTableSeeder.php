@@ -14,12 +14,12 @@ class MealsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('meals')->delete();
-        
+
         \DB::table('meals')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 2,
                 'name' => 'Dishdasha - دشداشه',
@@ -37,7 +37,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 5,
                 'name' => 'SOCKS جوارب',
@@ -55,7 +55,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 7,
                 'name' => 'U T-SHIRT فانية داخلية',
@@ -73,7 +73,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 8,
                 'name' => 'CAP كاب',
@@ -91,7 +91,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 9,
                 'name' => 'ABAYA عبايه',
@@ -109,7 +109,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 11,
                 'name' => 'MEN SHIRT قميص رجالي',
@@ -127,7 +127,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 12,
                 'name' => 'SHORT شورت',
@@ -145,7 +145,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 13,
                 'name' => 'SINGLE BLANKET بطانيه',
@@ -163,7 +163,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 14,
                 'name' => 'DOUBLE BLANKET بطانيه',
@@ -181,7 +181,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 15,
                 'name' => 'LADIES DISHDASHA جلابيه',
@@ -199,7 +199,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 16,
                 'name' => 'Skirt تنوره',
@@ -217,7 +217,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 17,
                 'name' => 'Wedding Dress فستان سهره',
@@ -235,7 +235,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 18,
                 'name' => 'kumma كمه',
@@ -253,7 +253,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 19,
                 'name' => 'PAKISTANI UNIFORM ملابس باكستان',
@@ -271,7 +271,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 20,
                 'name' => 'MILITRY PANTS بنطلون عسكري',
@@ -289,7 +289,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 21,
                 'name' => 'MILITRY SHIRT قميص عسكري',
@@ -307,7 +307,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 22,
                 'name' => 'MILITARY UNIFORM ملابس عسكرية',
@@ -325,7 +325,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 23,
                 'name' => 'LADIES DRESS فستان',
@@ -343,7 +343,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 24,
                 'name' => 'LADIES U-WEAR ملابس داخلية نسائية',
@@ -361,7 +361,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 25,
                 'name' => 'LADIES TROUSER بنطلون نسائي',
@@ -379,7 +379,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 26,
                 'name' => 'LADIES SHIRT قميص نسائي',
@@ -397,7 +397,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 27,
                 'name' => 'JACKET جاكيت',
@@ -415,7 +415,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 28,
                 'name' => 'TOWEL-D فوطه كبيره',
@@ -433,7 +433,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 29,
                 'name' => 'TOWEL-S فوطه صغيره',
@@ -451,7 +451,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 30,
                 'name' => 'PARDA ستاره',
@@ -469,7 +469,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 31,
                 'name' => 'BED SHEET-D شرشف كبير',
@@ -487,7 +487,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 32,
                 'name' => 'BED SHEET-S شرشف صغير',
@@ -505,7 +505,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 33,
                 'name' => 'SHAILA شيله',
@@ -523,7 +523,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 34,
                 'name' => 'UNEDR WEAR ملابس داخلية',
@@ -541,7 +541,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 35,
                 'name' => 'perfuming',
@@ -559,7 +559,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 36,
                 'name' => 'CARPET MITES',
@@ -577,7 +577,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 37,
                 'name' => 'SHOES جوتي& نعال',
@@ -595,7 +595,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 38,
                 'name' => 'L.D-BAG',
@@ -613,7 +613,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 39,
                 'name' => 'PILLOW مخده',
@@ -631,7 +631,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 40,
                 'name' => 'B.SEET D',
@@ -649,7 +649,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 41,
                 'name' => 'B.SEET S',
@@ -667,7 +667,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 42,
                 'name' => 'MEN TROUSER بنطلون رجالي',
@@ -685,7 +685,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 44,
                 'name' => 'SELOAR',
@@ -703,7 +703,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 45,
                 'name' => 'KAMISH LEDISH',
@@ -721,7 +721,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 46,
                 'name' => 'SAYLA شيله',
@@ -739,7 +739,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 47,
                 'name' => 'V.WEAR',
@@ -757,7 +757,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 48,
                 'name' => 'L.AWZAR وزار',
@@ -775,7 +775,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 49,
                 'name' => 'MUSAR OMAN مصر',
@@ -793,7 +793,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 50,
                 'name' => 'GATHRA - غتره',
@@ -811,7 +811,7 @@ class MealsTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'people_count' => '1',
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 51,
                 'name' => 'T.SHIRT فانيله',
@@ -830,7 +830,7 @@ class MealsTableSeeder extends Seeder
                 'people_count' => '1',
             ),
         ));
-        
-        
+
+
     }
 }

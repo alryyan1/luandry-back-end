@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 class Whatsapp extends Model
 {
     use HasFactory;
-    static string $token = 'qafrtjt7x91gpyyz';
-    static string $instance = 'instance101133';
+    static string $token = 'tqybmie1iogy3rbk';
+    static string $instance = 'instance101422';
     public static function sendMsgWb( $mobile, $msg)
     {
 
@@ -49,6 +49,83 @@ class Whatsapp extends Model
         } else {
             return  ['status'=> $response,'show'=>true];
         }
+    }
+    public static function sendLocation($mobile,$lat='24.258777500463474',$lng='56.82232960262458')
+    {
+
+        $params=array(
+            'token' => 'tqybmie1iogy3rbk',
+            'to' => '+249991961111',
+            'address' => 'ABC company \n Sixth floor , office 38',
+            'lat' => '25.197197',
+            'lng' => '55.2721877'
+        );
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.ultramsg.com/instance101422/messages/location",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => http_build_query($params),
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+
+//        $token = self::$token;
+//        $instance = self::$instance;
+//        $params = array(
+//            'token' => "$token",
+//            'to' => "$mobile",
+//            'address' => 'Del Pasta',
+//            'lat' => "25.197197",
+//            'lng' => "55.2721877"
+//        );
+//        $curl = curl_init();
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => "https://api.ultramsg.com/$instance/messages/chat",
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => "",
+//            CURLOPT_SSL_VERIFYPEER => 0,
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 30,
+//            CURLOPT_SSL_VERIFYHOST => 0,
+//            CURLOPT_SSL_VERIFYPEER => 0,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_POSTFIELDS => http_build_query($params),
+//            CURLOPT_HTTPHEADER => array(
+//                "content-type: application/x-www-form-urlencoded"
+//            ),
+//        ));
+//
+//        $response = curl_exec($curl);
+//        $err = curl_error($curl);
+//        curl_close($curl);
+//
+//        if ($err) {
+//            return ["cURL Error" => $err];
+//        } else {
+//            return  ['message'=> $response,'show'=>true];
+//        }
+
+
     }
     public static function  sendPdf($document, $phone)
     {

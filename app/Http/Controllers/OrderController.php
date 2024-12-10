@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers;
 
 use App\Exports\ExportOrder;
+use App\Models\Deduct;
+use App\Models\Deposit;
 use App\Models\Order;
 use App\Models\Meal;
 use App\Models\OrderMeal;
@@ -79,6 +81,7 @@ class OrderController extends Controller
         /** @var Settings $settings */
         $settings = Settings::first();
         $msg = $settings->header_content;
+        Whatsapp::sendLocation($order->customer->phone);
 
       return  Whatsapp::sendMsgWb($order->customer->phone,$msg);
 
@@ -86,16 +89,31 @@ class OrderController extends Controller
     public function orderMealsStats(Request $request)
     {
         $pdo = \DB::getPdo();
+        $filter = '';
         $date =  $request->get('date');
+        if ($date){
+            $filter = " WHERE orders.delivery_date = '$date'";
+        }
 //        $query = ;
-        $data =  $pdo->query("SELECT meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity) as totalQuantity FROM `requested_child_meals`
+        $data =  $pdo->query("SELECT distinct meals.id as mealId,child_meals.id as childId, meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity * requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
     JOIN child_meals  on child_meals.id = requested_child_meals.child_meal_id
     join order_meals  on order_meals.id = requested_child_meals.order_meal_id
     join meals  on meals.id = child_meals.meal_id
     join orders on orders.id = order_meals.order_id
-                                            WHERE orders.delivery_date = '$date' GROUP by child_meals.id,child_meals.name,meals.name")->fetchAll();
+                                         $filter   GROUP by child_meals.id,child_meals.name,meals.name,meals.id")->fetchAll();
+
+        $arr = [];
+        foreach ($data as $d){
+            $childid =  $d['childId'];
+            $quantity_sum =  Deposit::where('child_meal_id','=',$childid)->sum('quantity');
+            $quantity_deducted_sum =  Deduct::where('child_meal_id','=',$childid)->sum('quantity');
+            $d['totalDeposit'] = $quantity_sum;
+            $d['totalDeduct'] = $quantity_deducted_sum;
+            $arr[]=$d;
+//            print_r($d);
+        }
 //        \DB::table('requested_child_meals')
-        return response()->json($data);
+        return response()->json($arr);
     }
     public function orderConfirmed(Request $request , Order $order)
     {
@@ -170,7 +188,7 @@ Text;
 //            return  $request->get('amount_paid');
 
 
-            $order->amount_paid = $order->totalPrice();
+       //     $order->amount_paid = $order->totalPrice();
             $order->status = 'confirmed';
 
 

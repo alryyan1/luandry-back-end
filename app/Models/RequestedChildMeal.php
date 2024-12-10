@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $order_meal_id
@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedChildMeal whereQuantity($value)
  * @property int $count
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedChildMeal whereCount($value)
+ * @property-read mixed $available
  * @mixin \Eloquent
  */
 class RequestedChildMeal extends Model
@@ -32,11 +33,20 @@ class RequestedChildMeal extends Model
     protected $guarded = [];
     public $timestamps = false;
     protected $with = ['childMeal'];
+    protected $appends =['available','deducted'];
     use HasFactory;
     public function orderMeal()
     {
         return $this->belongsTo(OrderMeal::class);
     }
+    public function getAvailableAttribute()
+    {
+        return Deposit::where('child_meal_id','=',$this->child_meal_id)->sum('quantity');
+    } public function getDeductedAttribute()
+    {
+        return Deduct::where('child_meal_id','=',$this->child_meal_id)->sum('quantity');
+    }
+
 
     public function childMeal(){
         return $this->belongsTo(ChildMeal::class);
