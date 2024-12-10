@@ -92,19 +92,53 @@ class PDFController extends Controller
 //        dd($img);
         $pdf->Image($img,25,5,20,20);
         $pdf->setFont($fontname, '', 22);
+        $settings = Settings::first();
 
-        $pdf->Cell($page_width, 5, 'دل باستا', 0, 1, 'C');
+        $pdf->Cell($page_width, 5, $settings?->kitchen_name, 0, 1, 'C');
         $pdf->Cell($page_width, 5, 'الطلبات', 0, 1, 'C');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 16);
         $pdf->setFillColor(240, 240, 240);
-        $table_col_widht = $page_width / 5;
-        $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, '', 0, 1, 'C');
-        $table_col_widht = $page_width / 7;
+        $col = $page_width / 6;
+        $pdf->Cell(20, 5, 'التاريخ ', 0, 0, 'C', fill: 0);
+        $pdf->Cell(25, 5, $date, 0, 1, 'C');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 10);
 
+        $pdf->Cell($col/2,5,'Order Id',1,0,'C',true);
+        $pdf->Cell($col*2,5,'Name',1,0,'C',true);
+        $pdf->Cell($col/2,5,'Total',1,0,'C',true);
+        $pdf->Cell($col/2,5,'Paid',1,0,'C',true);
+        $pdf->Cell($col/2,5,'Remaining',1,0,'C',true);
+        $pdf->Cell($col*2,5,'Details',1,1,'C',true);
+        $orders  = Order::whereDate('created_at','=',$date)->get();
+        $total_total_f = 0;
+        $total_paid_f = 0;
+        $total_remaining_f = 0;
+        /** @var Order $order */
+        foreach ($orders as $order){
+            $y = $pdf->GetY();
+
+            $pdf->Line(15,$y,$page_width +15,$y);
+            $pdf->Cell($col/2,5,$order->id,'0',0,'C',0);
+            $pdf->Cell($col*2,5,$order?->customer?->name,'0',0,'C',0);
+            $pdf->Cell($col/2,5,$order->totalPrice(),'0',0,'C',0);
+            $pdf->Cell($col/2,5,$order->amount_paid,'0',0,'C',0);
+            $pdf->Cell($col/2,5,$order->totalPrice() - $order->amount_paid,'0',0,'C',0);
+            $total_total_f += $order->totalPrice();
+            $total_paid_f += $order->amount_paid;
+            $total_remaining_f += $order->totalPrice() - $order->amount_paid;
+            $pdf->MultiCell($col*2,5,$order->orderMealsNames(),'0','L',0,1);
+            $y = $pdf->GetY();
+
+            $pdf->Line(15,$y,$page_width +15,$y);
+        }
+        $pdf->Cell($col/2,5,'','0',0,'C',0);
+        $pdf->Cell($col*2,5,'','0',0,'C',0);
+        $pdf->Cell($col/2,5,$total_total_f,'0',0,'C',0);
+        $pdf->Cell($col/2,5,$total_paid_f,'0',0,'C',0);
+        $pdf->Cell($col/2,5,$total_remaining_f,'0',0,'C',0);
+        $pdf->MultiCell($col*2,5,'','0','L',0,1);
 
         $pdf->Ln();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
@@ -117,57 +151,16 @@ class PDFController extends Controller
         });
 
         $orders=  $qeury->get();
-        $html = '
-<table   cellpadding="1">
-    <thead>
-        <tr style="background-color: #cccccc;">
-            <th>اسم العملي </th>4
-            <th> اجمالي المبلغ</th>
-            <th> المدفوع</th>
-            <th>تاريخ التسليم </th>
-            <th> العنوان</th>
-            <th> رسوم التوصيل</th>
-            <th>  تاريخ الطلب</th>
-            <th>الحاله</th>
-        </tr>
-    </thead>
-    <tbody>';
-
-// Populate table with data
-        foreach ($orders as $order) {
-            $customerName = $order->customer ? $order->customer->name : 'N/A';
-            $html .= '<tr>
-        <td style="border-bottom: 1px solid blue">' . $customerName . '</td>
-        <td style="border-bottom: 1px solid blue">' . $order->totalAmount() . '</td>
-        <td style="border-bottom: 1px solid blue">' . number_format($order->amount_paid, 2) . '</td>
-        <td style="border-bottom: 1px solid blue">' . ($order->delivery_date ? $order->delivery_date: 'N/A') . '</td>
-        <td style="border-bottom: 1px solid blue">' . $order?->customer?->address . '</td>
-        <td style="border-bottom: 1px solid blue">' . $order?->delivery_fee . '</td>
-        <td style="border-bottom: 1px solid blue">' . $order?->created_at->format('Y-m-d H:i') . '</td>
-        <td style="border-bottom: 1px solid blue">' . ucfirst($order->status) . '</td>
-    </tr>';
-        }
-
-        $html .= '</tbody></table>';
-
-// Print HTML table in PDF
-        $pdf->writeHTML($html, true, false, true, false, '');
 
 
 
 
-        $pdf->setFont($fontname, 'b', 10);
-        $total = 0;
-        $expireDateSelected = $request->get('date') ?? null;
-        $date = new \DateTime($expireDateSelected);
-        $index = 0;
-        /** @var Item $item */
-        $code_num = 1;
+
+
 
         $pdf->Ln();
 
         $pdf->Output('example_003.pdf', 'I');
-        $code_num++;
     }
     public function printSale(Request $request)
     {

@@ -81,6 +81,7 @@ class OrderController extends Controller
         /** @var Settings $settings */
         $settings = Settings::first();
         $msg = $settings->header_content;
+        Whatsapp::sendLocation($order->customer->phone);
 
       return  Whatsapp::sendMsgWb($order->customer->phone,$msg);
 
@@ -94,7 +95,7 @@ class OrderController extends Controller
             $filter = " WHERE orders.delivery_date = '$date'";
         }
 //        $query = ;
-        $data =  $pdo->query("SELECT distinct meals.id as mealId,child_meals.id as childId, meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity) as totalQuantity FROM `requested_child_meals`
+        $data =  $pdo->query("SELECT distinct meals.id as mealId,child_meals.id as childId, meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity * requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
     JOIN child_meals  on child_meals.id = requested_child_meals.child_meal_id
     join order_meals  on order_meals.id = requested_child_meals.order_meal_id
     join meals  on meals.id = child_meals.meal_id
@@ -187,7 +188,7 @@ Text;
 //            return  $request->get('amount_paid');
 
 
-            $order->amount_paid = $order->totalPrice();
+       //     $order->amount_paid = $order->totalPrice();
             $order->status = 'confirmed';
 
 
