@@ -65,3 +65,5 @@ Route::post('deposits',[\App\Http\Controllers\DepositController::class,'store'])
 Route::post('deducts/{order}',[\App\Http\Controllers\DeductController::class,'store']);
 Route::get('arrival',[\App\Http\Controllers\OrderController::class,'arrival']);
 Route::patch('arrival/{order}',[\App\Http\Controllers\OrderController::class,'notify']);
+
+Route::get('orderById/{order}',[OrderController::class,'orderById']);

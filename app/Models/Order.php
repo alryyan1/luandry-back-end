@@ -74,6 +74,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDishReturnPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereOutside($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereWhatsapp($value)
+ * @property int $outside_confirmed
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereOutsideConfirmed($value)
  * @mixin \Eloquent
  */
 class Order extends Model

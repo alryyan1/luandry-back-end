@@ -22,11 +22,17 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text;
 
 class OrderController extends Controller
 {
+    public function orderById(Request $request,Order $order)
+    {
+        return $order;
+
+    }
     public function notify(Request $request, Order $order)
     {
         if ($request->get('outside')== 1){
             $order->car_palette = $request->get('car_palette'); ;
             $order->outside =1 ;
+            $order->outside_confirmed =1 ;
             $order->save();
             $order = $order->fresh();
             $name = $order->customer->name;
