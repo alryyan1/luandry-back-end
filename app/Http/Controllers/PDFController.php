@@ -90,7 +90,7 @@ class PDFController extends Controller
 
         $img = public_path('logo.png');
 //        dd($img);
-        $pdf->Image($img,25,5,20,20);
+//        $pdf->Image($img,25,5,20,20);
         $pdf->setFont($fontname, '', 22);
         $settings = Settings::first();
 
@@ -162,11 +162,11 @@ class PDFController extends Controller
 
         $pdf->Output('example_003.pdf', 'I');
     }
-    public function printSale(Request $request)
+    public function printSale(Request $request,$order_id,$wb = false)
     {
         //سعدنا بزيارتكم اسم العميل نتمني لكم دوام الصحه والعافيه
 
-        $order = Order::find($request->get('order_id'));
+        $order = Order::find($request->get('order_id') ?? $order_id);
          $totalChildren = $order->mealOrders->reduce(function ($prev,$curr){
             return $prev + $curr->requestedChildMeals->count();
         },0);
@@ -185,7 +185,7 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ticket');
         $pdf->setSubject('ticket');
-        $pdf->setMargins(0, 0, 10);
+        $pdf->setMargins(10, 0, 10);
 //        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
 //        $pdf->setFooterMargin(0);
         $page_width = 65;
@@ -195,21 +195,23 @@ class PDFController extends Controller
         $settings= Settings::all()->first();
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+        $pdf->Ln();
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1);
+//            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1); لراضي
+            $pdf->Image("@".$img, 65 , 5, 75, 15,align: 'C',fitbox: 1); //اسعد
 
         }
 
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 0, 10);
+        $pdf->setMargins(10, 0, 10);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
 
         $pdf->SetFont($arial, '', 7, '', true);
-        $pdf->Cell(60,5,$order->created_at->format('Y/m/d H:i A'),0,1);
+//        $pdf->Cell(60,5,$order->created_at->format('Y/m/d H:i A'),0,1);
 
-        $pdf->Ln(10);
+        $pdf->Ln(15);
 
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
 //        $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
@@ -217,28 +219,28 @@ class PDFController extends Controller
         $pdf->SetFont($arial, '', 7, '', true);
 
         $colWidth = $page_width/3;
-        $pdf->SetFont($arial, '', 11, '', true);
+        $pdf->SetFont($arial, '', 10, '', true);
 
         $pdf->Cell($page_width,5,'  فاتوره Invoice',0,1,'C',fill: 1);
 //        $pdf->Cell($page_width,5,'VATIN '.$settings->vatin,0,1,'C',fill: 0);
         $pdf->Cell(15,5,'رقم الطلب :',0,0);
-        $pdf->Cell(40,5,$order->id,0,0,'C');
+        $pdf->Cell(35,5,$order->id,0,0,'C');
         $pdf->Cell(15,5,'Oder No :',0,1,'L');
 
         $pdf->Cell(15,5,'التاريخ :',0,0);
-        $pdf->Cell(40,5,$order->created_at->format('Y-m-d H:i A'),0,0,'C');
+        $pdf->Cell(35,5,$order->created_at->format('Y-m-d H:i A'),0,0,'C');
         $pdf->Cell(15,5,'Date :',0,1,'L');
 
         $pdf->Cell(15,5,'المستخدم :',0,0);
-        $pdf->Cell(40,5,$order->user->username,0,0,'C');
+        $pdf->Cell(35,5,$order->user->username,0,0,'C');
         $pdf->Cell(15,5,'User :',0,1,'L');
 
         $pdf->Cell(15,5,'اسم العميل :',0,0);
-        $pdf->Cell(40,5,$order->customer->name ?? 'Default Client',0,0,'C');
+        $pdf->Cell(35,5,$order->customer->name ?? 'Default Client',0,0,'C');
         $pdf->Cell(15,5,'To :',0,1,'L');
 
         $pdf->Cell(15,5,'هاتف العميل  :',0,0);
-        $pdf->Cell(40,5,$order?->customer?->phone ,0,0,'C');
+        $pdf->Cell(35,5,$order?->customer?->phone ,0,0,'C');
         $pdf->Cell(15,5,'Phone :',0,1,'L');
 //        $pdf->SetFont($arial, 'u', 14, '', true);
 
@@ -350,7 +352,7 @@ class PDFController extends Controller
         $pdf->Cell($cols,5,$order->payment_type ,'TB' ,0,'C',0);
 
         $pdf->Cell($cols ,5,'Payment','TB' ,1,'C',fill: 0);
-        $pdf->Cell($cols,5,'حاله التوصيل','TB',0,'C',fill: 0);
+        $pdf->Cell($cols,5,' التوصيل','TB',0,'C',fill: 0);
         $pdf->Cell($cols,5,$order->is_delivery ? 'نعم':'لا' ,'TB'  ,0,'C',0);
 
         $pdf->Cell($cols ,5,'Delivery','TB',1,'C',fill: 0);
@@ -366,6 +368,11 @@ class PDFController extends Controller
         $pdf->Cell($col,5,'Email:'.$settings->email,0,0,'C');
         $pdf->Cell( $col,5,$settings->address.'  Address',0,1,'C');
 
+
+        if ($wb){
+            $result_as_bs64 = $pdf->output('name.pdf', 'S');
+            Whatsapp::sendPdf($result_as_bs64, $order->customer->phone);
+        }
 
         if ($request->has('base64')) {
             if ($request->get('base64')== 2){

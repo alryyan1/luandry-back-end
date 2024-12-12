@@ -66,6 +66,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereReceiptLocation($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deduct> $deducts
  * @property-read int|null $deducts_count
+ * @property int $whatsapp
+ * @property float|null $dish_return_price
+ * @property int $outside
+ * @property string|null $car_palette
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCarPalette($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDishReturnPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereOutside($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereWhatsapp($value)
  * @mixin \Eloquent
  */
 class Order extends Model

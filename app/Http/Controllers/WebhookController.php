@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Whatsapp;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class WebHookController extends Controller
         if(isset($event)){
             //Here, you now have event and can process them how you like e.g Add to the database or generate a response
             $file = 'log.txt';
+
             $data =json_encode($event)."\n";
             $from = $event["data"]["from"];
             $msg = $event["data"]["body"];
@@ -23,42 +25,40 @@ class WebHookController extends Controller
             $from_sms =  str_replace("@","",$from_sms);
             $pdfController = new PDFController();
             if ($msg === 'report'){
-                $pdfController->shipping($request,$from_sms);
+               // $pdfController->shipping($request,$from_sms);
 
             }
+            Whatsapp::sendMsgWb($from_sms,$msg,true);
 
-            if (is_numeric($msg)){
+            $last_order = Order::whereHas('customer',function($q) use ($from_sms){
+                $q->where('phone',substr($from_sms,3));
 
-                $shipping = Shipping::where('id',$msg)->where('phone',substr($from_sms,3))->get();
-                if ($shipping){
-                    $date =  $shipping->created_at->format('Y-m-d');
-                    $item_name = $shipping?->item?->name ?? '';
-                    $state_name = $shipping?->state?->name ?? '';
-                    $doc = <<<TXT
-مجان للشحن ترحب بكم
-
-اسم الزبون :  *$shipping->name*
- رقم الشحنه  :  *$shipping->express*
-الصنف :    *$item_name*
-*عدد الكراتين : $shipping->ctn*
-*الحجم :  $shipping->cbm*
-الوزن :   *$shipping->kg*
-*الحالة :$state_name*
-شكراً لثقتكم بنا
+            })->orderByDesc('id')->first();
+            if ($last_order){
+                $customer_name = $last_order?->customer?->name;
 
 
-Majan Express
+                $msg = <<<TXT
+مرحبا  عزيزي $customer_name
+
+يرجي كتابه لوحه سيارتك
+
 TXT;
-//               $shipping_details =" {$shipping->name}";
+//
+                if ($last_order->status == 'delivered'){
 
-                    Whatsapp::sendMsgWb($from_sms,$doc);
+                }else{
+                    Whatsapp::sendMsgWb($from_sms,$msg,true);
+
                 }
-
-
             }
 
 
-            file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
+//            Whatsapp::sendMsgWb($from_sms,$from_sms);
+//            Whatsapp::sendMsgWb($from_sms,substr($from_sms,3));
+
+
+            file_put_contents(storage_path() .  $file, $data, FILE_APPEND | LOCK_EX);
 
 
         }

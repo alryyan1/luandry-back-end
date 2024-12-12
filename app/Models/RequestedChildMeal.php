@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $order_meal_id
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $count
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedChildMeal whereCount($value)
  * @property-read mixed $available
+ * @property-read mixed $deducted
  * @mixin \Eloquent
  */
 class RequestedChildMeal extends Model

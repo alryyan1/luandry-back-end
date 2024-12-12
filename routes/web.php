@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebHookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,3 +58,5 @@ Route::get('/suppliers',[SupplierController::class,'index']);
 Route::get('/suppliers/{supplierId}',[SupplierController::class,'destroy']);
 Route::post('/createSupplier',[SupplierController::class,'store']);
 Route::post('/updateSupplier',[SupplierController::class,'update']);
+
+Route::post('webhook',[WebhookController::class,'webhook']);

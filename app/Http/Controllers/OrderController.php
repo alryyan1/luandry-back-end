@@ -22,6 +22,41 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text;
 
 class OrderController extends Controller
 {
+    public function notify(Request $request, Order $order)
+    {
+        if ($request->get('outside')== 1){
+            $order->car_palette = $request->get('car_palette'); ;
+            $order->outside =1 ;
+            $order->save();
+            $order = $order->fresh();
+            $name = $order->customer->name;
+            $details = $order->orderMealsNames();
+            $msg = <<<Text
+========================
+  العميل في الخارج
+   Customer is outside
+========================
+         Order $order->id
+
+   🧑🏻‍🦱$name
+
+   🚗 $order->car_palette
+
+   👕  $details
+
+
+Text;
+            $settings = Settings::first();
+            $worker_phone= $settings->inventory_notification_number;
+            Whatsapp::sendMsgWb($worker_phone,$msg);
+        }
+    }
+    public function arrival(Request $request)
+    {
+       return   Order::where('outside','=',1)->get();
+
+
+    }
     public function pagination(Request $request, $page)
     {
 //        \DB::enableQueryLog();
@@ -161,6 +196,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
 
+
         if ($request->get('status')=='Completed'){
             $name = $order->customer->name;
             $msg = <<<Text
@@ -171,6 +207,19 @@ class OrderController extends Controller
 Text;
 
             Whatsapp::sendMsgWb($order->customer->phone,$msg);
+
+            $msg = <<<Text
+ عزيزي العميل
+ عند وصولك للمحل اضغط علي الرابط ادناه لاخطار استقبال المحل بوصولك
+ https://rain-laundry.com/#arrive/$order->id
+
+Text;
+            Whatsapp::sendMsgWb($order->customer->phone,$msg);
+
+            $pdfC = new PDFController();
+            //send invoice using whatsapp
+//            $request->order_id = $order->id;
+            $pdfC->printSale($request,$order->id,true);
         }
         if ($request->amount_paid > $order->totalPrice()){
             return response()->json(['status'=>false,'message'=>'عمليه خاطئه'],404);

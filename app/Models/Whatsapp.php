@@ -16,10 +16,16 @@ use Illuminate\Database\Eloquent\Model;
 class Whatsapp extends Model
 {
     use HasFactory;
-    static string $token = 'tqybmie1iogy3rbk';
-    static string $instance = 'instance101422';
-    public static function sendMsgWb( $mobile, $msg)
+    static string $token = '199su5ud5hyxz4dm';
+    static string $instance = 'instance101527';
+    public static function sendMsgWb( $mobile, $msg,$prefix = false)
+
     {
+        if ($prefix){
+        }else{
+            $mobile = '968'. $mobile;
+        }
+
 
         $token = self::$token;
         $instance = self::$instance;
@@ -33,7 +39,7 @@ class Whatsapp extends Model
             CURLOPT_TIMEOUT => 5,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "token=$token&to=" . $mobile . "&body=" . $msg . "&priority=1&referenceId=",
+            CURLOPT_POSTFIELDS => "token=$token&to=".$mobile."&body=" . $msg . "&priority=1&referenceId=",
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded"
             ),
@@ -127,10 +133,13 @@ class Whatsapp extends Model
 
 
     }
-    public static function  sendPdf($document, $phone)
+    public static function  sendPdf($document, $phone,$prefix = false)
     {
 
-        $to = $phone;
+        if ($prefix){
+        }else{
+            $mobile = '968'. $phone;
+        }
         $instance = self::$instance;
         $token = self::$token;
         //Encodes data base64
@@ -147,7 +156,7 @@ class Whatsapp extends Model
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "token=$token&to=$to&document=$img_base64&filename=report.pdf",
+            CURLOPT_POSTFIELDS => "token=$token&to=$mobile&document=$img_base64&filename=report.pdf",
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded"
             ),

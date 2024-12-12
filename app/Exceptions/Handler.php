@@ -34,6 +34,7 @@ class Handler extends ExceptionHandler
 
 //                Whatsapp::sendMsgWb('96878622990',$e->getMessage());
                 return response()->json([
+                     'show'=>true,
                     'status_code' => 401,
                     'success' => false,
                     'message' => 'Unauthenticated.'
