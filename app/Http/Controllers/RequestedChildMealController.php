@@ -36,7 +36,7 @@ class RequestedChildMealController extends Controller
         $requestedChildMeal = RequestedChildMeal::where('child_meal_id',$child_meal_id)->where('order_meal_id',$orderMeal->id)->first();
         if ($requestedChildMeal){
            $result =  $requestedChildMeal->delete();
-            return ['status'=>$result,'order'=>$orderMeal->order->load('mealOrders'),'show'=>true];
+            return ['status'=>$result,'order'=>$orderMeal->order->load('mealOrders'),'show'=>false];
 
         }
            $childMeal = ChildMeal::find($child_meal_id);
@@ -50,7 +50,7 @@ class RequestedChildMealController extends Controller
 
             return ['status'=>$data,'order'=>$orderMeal->order->load(['mealOrders','mealOrders'=>function ($q) {
                 $q->with('requestedChildMeals.orderMeal');
-            }]),'show'=>true];
+            }]),'show'=>false];
 
     }
 
@@ -75,7 +75,7 @@ class RequestedChildMealController extends Controller
      */
     public function update(Request $request, RequestedChildMeal $requestedChildMeal)
     {
-        return ['status'=>$requestedChildMeal->update($request->all()),'order'=>$requestedChildMeal->orderMeal->order->load('mealOrders.meal'),'show'=>true];
+        return ['status'=>$requestedChildMeal->update($request->all()),'order'=>$requestedChildMeal->orderMeal->order->load('mealOrders.meal'),'show'=>false];
     }
 
     /**

@@ -105,7 +105,10 @@ class OrderMealsController extends Controller
 
 
         if ($order->order_confirmed ){
-            return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);
+            return  response()->json(['status'=>false,'message'=>'Cant Change !','show'=>true],404);
+        }
+        if ($order->status =='delivered' ){
+            return  response()->json(['status'=>false,'message'=>'Cant Change after Delivery','show'=>true],404);
         }
 
         return ['status'=>$orderMeal->update($request->all()),'order'=>$orderMeal->load('order')->order];

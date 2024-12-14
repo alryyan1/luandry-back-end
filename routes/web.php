@@ -60,3 +60,11 @@ Route::post('/createSupplier',[SupplierController::class,'store']);
 Route::post('/updateSupplier',[SupplierController::class,'update']);
 
 Route::post('webhook',[WebhookController::class,'webhook']);
+Route::get('convert_images',function (){
+   $meals =  \App\Models\Meal::get();
+   /** @var \App\Models\Meal $meal */
+    foreach ($meals as $meal){
+       $mealController = new \App\Http\Controllers\MealController();
+       $mealController->saveImage(null,$meal);
+   }
+});

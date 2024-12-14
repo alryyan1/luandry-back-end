@@ -55,6 +55,8 @@ class PDFController extends Controller
 
 
         $pdf = new Pdf('l', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->setFontSubsetting(true);
+        $pdf->setCompression(true);
 
         $lg = array();
         $lg['a_meta_charset'] = 'UTF-8';
@@ -171,7 +173,7 @@ class PDFController extends Controller
             return $prev + $curr->requestedChildMeals->count();
         },0);
         $count =  $order->mealOrders->count();
-        $custom_layout = array(80, 120 + ($count * 5)*2 + ($totalChildren * 5)) ;
+        $custom_layout = array(80, 120 + ($count * 5)*3 + ($totalChildren * 5)) ;
         $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
         $lg = array();
         $lg['a_meta_charset'] = 'UTF-8';
@@ -197,8 +199,8 @@ class PDFController extends Controller
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         $pdf->Ln();
         if ($settings->is_logo ){
-//            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1); لراضي
-            $pdf->Image("@".$img, 65 , 5, 75, 15,align: 'C',fitbox: 1); //اسعد
+            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1);// radi
+//            $pdf->Image("@".$img, 65 , 5, 75, 15,align: 'C',fitbox: 1); //اسعد
 
         }
 

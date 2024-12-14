@@ -77,8 +77,9 @@ Text;
         $query->when($request->status,function (Builder $q) use ($request) {
                 $q->where('status','=',$request->status);
         });
-        $query->when($request->delivery_date,function (Builder $q) use ($request){
-                $q->where('delivery_date','=',$request->delivery_date);
+        $query->when($request->date,function (Builder $q) use ($request){
+            $date = $request->date;
+                $q->whereRaw('Date(created_at) = ?',[$date]);
         });
 //        return ['data'=> $query->orderByDesc('id')->paginate($page) , 'analytics'=> \DB::getQueryLog()];
         return $query->orderByDesc('id')->paginate($page);
@@ -88,7 +89,7 @@ Text;
     public function send(Request $request,Order $order)
     {
         if ($order->customer == null){
-            return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+            return response()->json(['status'=>false,'message'=>'Customer Must Be Selected'],404);
         }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
@@ -115,7 +116,7 @@ Text;
     public function sendMsg(Request $request,Order $order)
     {
         if ($order->customer == null){
-            return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+            return response()->json(['status'=>false,'message'=>'Customer Must be Selected'],404);
         }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
@@ -228,17 +229,17 @@ Text;
             $pdfC->printSale($request,$order->id,true);
         }
         if ($request->amount_paid > $order->totalPrice()){
-            return response()->json(['status'=>false,'message'=>'عمليه خاطئه'],404);
+            return response()->json(['status'=>false,'message'=>'Bad operation'],404);
         }
         if ($request->get('order_confirmed')) {
         }
             if ($request->get('order_confirmed')){
 
             if ($order->customer == null){
-                return response()->json(['status'=>false,'message'=>'يجب تحديد الزبون   اولا '],404);
+                return response()->json(['status'=>false,'message'=>'Customer must be selected'],404);
             }
             if ($order->status == 'cancelled'){
-                return response()->json(['status'=>false,'message'=>'يجب تغيير حاله  اولا '],404);
+                return response()->json(['status'=>false,'message'=>'Please Change Status First'],404);
             }
 //            return  $request->get('amount_paid');
 
@@ -249,9 +250,17 @@ Text;
 
         }elseif ($request->get('status') == 'cancelled'){
             $order->order_confirmed = 0;
-            $order->amount_paid = 0;
+                $order->amount_paid = 0;
+                $order->delivery_fee = 0;
+
+        }elseif ($request->get('status') == 'delivered'){
+//                   $order->amount_paid = $order->totalPrice();
+                   $order->update(['amount_paid'=>$order->totalPrice()]);
+//                   return ['show'=>true,'message'=>'shifjsidfjodf'];
+
 
         }
+
 
         $result = $order->update($request->all());
         return response()->json(['status' => $result, 'order' => $order->load('customer'),'show'=>$order->order_confirmed == true], 200);

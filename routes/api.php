@@ -56,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function (){
 });
 Route::post('orderConfirmed/{order}',[OrderController::class,'orderConfirmed']);
 Route::post('orders/pagination/{page}',[OrderController::class,'pagination']);
+Route::get('orders/pagination/{page}',[OrderController::class,'pagination']);
 
 Route::get('/printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('orderMealsStats',[\App\Http\Controllers\OrderController::class,'orderMealsStats']);
@@ -67,3 +68,6 @@ Route::get('arrival',[\App\Http\Controllers\OrderController::class,'arrival']);
 Route::patch('arrival/{order}',[\App\Http\Controllers\OrderController::class,'notify']);
 
 Route::get('orderById/{order}',[OrderController::class,'orderById']);
+
+Route::post('saveImage/{meal}',[MealController::class,'saveImage']);
+Route::get('fileNames',[MealController::class,'getFileNamesFromPublicFolder']);
