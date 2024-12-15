@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $customer_id
@@ -111,9 +111,11 @@ class Order extends Model
         /** @var OrderMeal $mealOrder */
         foreach ($this->mealOrders as $mealOrder){
 //                return ['$requestedMeal'=>$requestedMeal];
-                $total += $mealOrder->totalPrice()  * $mealOrder->quantity; ;
+//                $total += $mealOrder->totalPrice()  * $mealOrder->quantity; ; IMPORTANT LINE CHANGED MUST BE REVIEWED
+                $total += $mealOrder->totalPrice()  + ($mealOrder->quantity * $mealOrder->price); ;
         }
         $total+= $this->delivery_fee;
+
         return $total;
     }
 
