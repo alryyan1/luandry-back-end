@@ -199,8 +199,8 @@ class PDFController extends Controller
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         $pdf->Ln();
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1);// radi
-//            $pdf->Image("@".$img, 65 , 5, 75, 15,align: 'C',fitbox: 1); //اسعد
+//            $pdf->Image("@".$img, 50 , 0, 80, 20,align: 'C',fitbox: 1);// radi
+            $pdf->Image("@".$img, 70 , 5, 65, 25,align: 'C',fitbox: 1); //اسعد
 
         }
 
@@ -265,7 +265,7 @@ class PDFController extends Controller
         $style = 'DF'; // Border and fill
 
         $pdf->SetDrawColor(0, 0, 0); // Black border
-        $pdf->SetFillColor(255, 200, 200); // Light red fill
+     //   $pdf->SetFillColor(255, 200, 200); // Light red fill
         $index = 1 ;
         $colWidth = $page_width/3;
 
@@ -276,7 +276,7 @@ class PDFController extends Controller
         /** @var OrderMeal $orderMeal */
         foreach ($order->mealOrders as $orderMeal){
 //            rgb(232, 234, 246)
-            $pdf->SetFillColor(232, 234, 246); // Light red fill
+          //  $pdf->SetFillColor(232, 234, 246); // Light red fill
             $y = $pdf->GetY();
             $count =$orderMeal->requestedChildMeals->count();
 
@@ -284,7 +284,7 @@ class PDFController extends Controller
 //            rgb(187, 222, 251)
             $pdf->SetLineStyle(array('width' => 0.1, 'dash' => '3,3', 'color' => array(0, 0, 0)));
 
-            $pdf->SetFillColor(187, 222, 251); // Light red fill
+           // $pdf->SetFillColor(187, 222, 251); // Light red fill
             $pdf->Cell(5,5,$index ,1,0,fill: 1,stretch: 1);
             $colWidth = $page_width /3;
             $pdf->Cell($colWidth * 2.3 ,5,$orderMeal->meal->name,1,0,fill: 1);
