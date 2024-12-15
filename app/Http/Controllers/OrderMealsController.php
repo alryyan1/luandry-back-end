@@ -76,7 +76,7 @@ class OrderMealsController extends Controller
 //        $requestedChildController = new RequestedChildMealController();
 //        $requestedChildController->store($request,$orderMeal);
 
-        return ['status'=>$orderMeal,'order'=>$orderMeal->order->load('mealOrders.meal')];
+        return ['status'=>$orderMeal,'order'=>$orderMeal->order->load('mealOrders.meal'),'mealOrder'=>$orderMeal->load('meal')];
 
     }
 

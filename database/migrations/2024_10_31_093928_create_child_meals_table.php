@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('child_meals', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Meal::class)->constrained();
+            $table->foreignIdFor(\App\Models\Meal::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('quantity')->default(1);
             $table->string('name');
             $table->timestamps();
