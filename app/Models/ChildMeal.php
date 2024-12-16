@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $meal_id
@@ -35,9 +35,14 @@ use Illuminate\Database\Eloquent\Model;
 class ChildMeal extends Model
 {
     protected $guarded = [];
+    protected $with =['service'];
     use HasFactory;
     public function meal()
     {
         return $this->belongsTo(Meal::class);
+    }
+    public function service()
+    {
+         return $this->belongsTo(Service::class);
     }
 }

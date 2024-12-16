@@ -135,20 +135,24 @@ Text;
         $date =  $request->get('date');
         if ($date){
             $filter = " WHERE orders.delivery_date = '$date'";
+        }elseif ($request->get('category')){
+            $filter.='Where c.id = '.$request->get('category');
         }
 //        $query = ;
-        $data =  $pdo->query("SELECT distinct meals.id as mealId,child_meals.id as childId, meals.name as mealName, child_meals.name as childName,   SUM(child_meals.quantity * requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
+        $data =  $pdo->query("SELECT s.id as serviceId, s.name as childName,   SUM(child_meals.quantity * requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
     JOIN child_meals  on child_meals.id = requested_child_meals.child_meal_id
     join order_meals  on order_meals.id = requested_child_meals.order_meal_id
     join meals  on meals.id = child_meals.meal_id
     join orders on orders.id = order_meals.order_id
-                                         $filter   GROUP by child_meals.id,child_meals.name,meals.name,meals.id")->fetchAll();
+    join  categories c on c.id = meals.category_id
+    join services s on s.id = child_meals.service_id
+                                         $filter   GROUP by s.name,s.id")->fetchAll();
 
         $arr = [];
         foreach ($data as $d){
-            $childid =  $d['childId'];
-            $quantity_sum =  Deposit::where('child_meal_id','=',$childid)->sum('quantity');
-            $quantity_deducted_sum =  Deduct::where('child_meal_id','=',$childid)->sum('quantity');
+            $serviceId =  $d['serviceId'];
+            $quantity_sum =  Deposit::where('service_id','=',$serviceId)->sum('quantity');
+            $quantity_deducted_sum =  Deduct::where('service_id','=',$serviceId)->sum('quantity');
             $d['totalDeposit'] = $quantity_sum;
             $d['totalDeduct'] = $quantity_deducted_sum;
             $arr[]=$d;

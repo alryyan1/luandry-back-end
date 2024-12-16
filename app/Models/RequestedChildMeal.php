@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $order_meal_id
@@ -42,10 +42,10 @@ class RequestedChildMeal extends Model
     }
     public function getAvailableAttribute()
     {
-        return Deposit::where('child_meal_id','=',$this->child_meal_id)->sum('quantity');
+        return Deposit::where('service_id','=',$this->child_meal_id)->sum('quantity');
     } public function getDeductedAttribute()
     {
-        return Deduct::where('child_meal_id','=',$this->child_meal_id)->sum('quantity');
+        return Deduct::where('service_id','=',$this->child_meal_id)->sum('quantity');
     }
 
 

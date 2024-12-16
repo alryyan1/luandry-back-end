@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('deducted_items', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Order::class)->constrained();
-            $table->unique(['child_meal_id','order_id']);
+            $table->unique(['service_id','order_id']);
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('deducted_items', function (Blueprint $table) {
             $table->dropForeignIdFor(\App\Models\Order::class);
-            $table->dropUnique(['child_meal_id','order_id']);
+            $table->dropUnique(['service_id','order_id']);
         });
     }
 };

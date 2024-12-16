@@ -53,6 +53,25 @@ class RequestedChildMealController extends Controller
             }]),'show'=>false];
 
     }
+    public function storeAll(Request $request,OrderMeal $orderMeal)
+    {
+
+         foreach ($orderMeal->meal->childMeals as $childMeal){
+             $data =RequestedChildMeal::create([
+                 'order_meal_id' => $orderMeal->id,
+                 'child_meal_id' =>$childMeal->id,
+                 'quantity' => $childMeal->quantity,
+                 'price' => $childMeal->price,
+
+             ]);
+
+         }
+
+            return ['status'=>$data,'order'=>$orderMeal->order->load(['mealOrders','mealOrders'=>function ($q) {
+                $q->with('requestedChildMeals.orderMeal');
+            }]),'show'=>false];
+
+    }
 
     /**
      * Display the specified resource.

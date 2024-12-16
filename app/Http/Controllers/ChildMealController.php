@@ -31,7 +31,7 @@ class ChildMealController extends Controller
     {
         $validated = $request->validated();
         $data =  ChildMeal::create($validated);
-        return ['status'=>$data,'data'=>$data->load('meal')->meal];
+        return ['status'=>$data,'data'=>$data->load(['meal','service'])->meal];
     }
 
     /**

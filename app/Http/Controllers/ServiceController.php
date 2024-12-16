@@ -17,6 +17,10 @@ class ServiceController extends Controller
     {
         return Service::create($request->all());
     }
+    public function update(Request $request, Service $service)
+    {
+        $service->update($request->all());
+    }
     public function defineServices(Request $request,Meal $meal)
     {
         $sevices = Service::all();

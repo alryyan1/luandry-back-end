@@ -108,11 +108,17 @@ class Order extends Model
     public function totalPrice()
     {
         $total = 0;
+
         /** @var OrderMeal $mealOrder */
         foreach ($this->mealOrders as $mealOrder){
 //                return ['$requestedMeal'=>$requestedMeal];
 //                $total += $mealOrder->totalPrice()  * $mealOrder->quantity; ; IMPORTANT LINE CHANGED MUST BE REVIEWED
-                $total += $mealOrder->totalPrice()  + ($mealOrder->quantity * $mealOrder->price); ;
+                if ($mealOrder->price > 0){
+                    $total += $mealOrder->price * $mealOrder->quantity;
+                }else{
+                    $total += $mealOrder->totalPrice()  + ($mealOrder->quantity * $mealOrder->price); ;
+
+                }
         }
         $total+= $this->delivery_fee;
 

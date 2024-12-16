@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deducted_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\ChildMeal::class)->constrained();
+            $table->foreignIdFor(\App\Models\Service::class)->constrained();
             $table->integer('quantity');
             $table->timestamps();
         });

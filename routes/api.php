@@ -34,6 +34,7 @@ Route::apiResource('CostCategories',\App\Http\Controllers\CostCategoryController
 Route::apiResource('orderMeals',\App\Http\Controllers\OrderMealsController::class);
 Route::post('RequestedChild/{orderMeal}',[RequestedChildMealController::class,'store']);
 Route::patch('RequestedChild/{requestedChildMeal}',[RequestedChildMealController::class,'update']);
+Route::post('RequestedChildAddAll/{orderMeal}',[RequestedChildMealController::class,'storeAll']);
 Route::get('ordersInfoGraphic',[\App\Http\Controllers\OrderMealsController::class,'ordersInfoGraphic']);
 Route::apiResource('customers',\App\Http\Controllers\CustomerController::class);
 Route::apiResource('mealReservations',\App\Http\Controllers\CustomerController::class);
@@ -43,6 +44,7 @@ Route::apiResource('childMeals', \App\Http\Controllers\ChildMealController::clas
 Route::post('settings',[SettingsController::class,'update']);
 Route::get('settings',[SettingsController::class,'index']);
 Route::get('services',[\App\Http\Controllers\ServiceController::class,'index']);
+Route::patch('services/{service}',[\App\Http\Controllers\ServiceController::class,'update']);
 Route::post('services',[\App\Http\Controllers\ServiceController::class,'store']);
 Route::post('defineServices/{meal}',[\App\Http\Controllers\ServiceController::class,'defineServices']);
 Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
@@ -59,7 +61,7 @@ Route::post('orders/pagination/{page}',[OrderController::class,'pagination']);
 Route::get('orders/pagination/{page}',[OrderController::class,'pagination']);
 
 Route::get('/printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
-Route::get('orderMealsStats',[\App\Http\Controllers\OrderController::class,'orderMealsStats']);
+Route::post('orderMealsStats',[\App\Http\Controllers\OrderController::class,'orderMealsStats']);
 Route::post('send/{order}',[\App\Http\Controllers\OrderController::class,'send']);
 Route::post('sendMsg/{order}',[\App\Http\Controllers\OrderController::class,'sendMsg']);
 Route::post('deposits',[\App\Http\Controllers\DepositController::class,'store']);
@@ -71,3 +73,6 @@ Route::get('orderById/{order}',[OrderController::class,'orderById']);
 
 Route::post('saveImage/{meal}',[MealController::class,'saveImage']);
 Route::get('fileNames',[MealController::class,'getFileNamesFromPublicFolder']);
+Route::post('sendMsgWa/{order}',[\App\Http\Controllers\WaController::class,'sendMsg']);
+Route::post('sendMsgWaLocation/{order}',[\App\Http\Controllers\WaController::class,'sendLocation']);
+Route::post('sendMsgWaDocument/{order}',[\App\Http\Controllers\WaController::class,'senDocument']);

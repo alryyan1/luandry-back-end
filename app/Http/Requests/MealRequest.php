@@ -23,8 +23,8 @@ class MealRequest extends FormRequest
     {
         return [
             'meal_id' => 'required|exists:meals,id',    // Ensures a valid Meal ID is provided
+            'service_id' => 'required|exists:services,id',    // Ensures a valid Meal ID is provided
             'quantity' => '',     // Quantity must be an integer and at least 1
-            'name' => 'required|string|max:255',
             'price'=> '',
             'weight'=> '',
             'people_count'=>''
