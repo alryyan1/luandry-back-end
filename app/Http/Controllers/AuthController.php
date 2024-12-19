@@ -30,7 +30,7 @@ class AuthController extends Controller
             return response(['message'=>'password or user is wrong'],401);
         }
         $user =  \Auth::user();
-        $token =$user->createToken('main');
+        $token =$user->createToken('main',['*'],now()->addHour());
 //        DB::table('personal_access_tokens')->where('tokenable_id',$user->id)
 //            ->update(['expires_at'=>Carbon::now()->addHour()]);
 

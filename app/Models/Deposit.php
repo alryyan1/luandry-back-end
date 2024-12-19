@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereUpdatedAt($value)
+ * @property int $service_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereServiceId($value)
  * @mixin \Eloquent
  */
 class Deposit extends Model

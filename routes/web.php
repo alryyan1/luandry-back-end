@@ -68,3 +68,11 @@ Route::get('convert_images',function (){
        $mealController->saveImage(null,$meal);
    }
 });
+Route::get('convert_categories_images',function (){
+   $cats =  \App\Models\Category::get();
+   /** @var \App\Models\Category $category */
+    foreach ($cats as $category){
+       $mealController = new \App\Http\Controllers\MealController();
+       $mealController->saveImage(null,$category);
+   }
+});

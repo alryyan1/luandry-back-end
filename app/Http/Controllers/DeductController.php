@@ -25,7 +25,7 @@ class DeductController extends Controller
 
             /** @var RequestedChildMeal $requestedChildMeal */
             foreach ($mealOrder->requestedChildMeals as $requestedChildMeal){
-                Deduct::create(['child_meal_id'=>$requestedChildMeal->child_meal_id,'quantity'=>$requestedChildMeal->quantity * $requestedChildMeal->count,'order_id'=>$order->id]);
+                Deduct::create(['service_id'=>$requestedChildMeal->childMeal->service->id,'quantity'=>$requestedChildMeal->quantity * $requestedChildMeal->count,'order_id'=>$order->id]);
             }
         }
 

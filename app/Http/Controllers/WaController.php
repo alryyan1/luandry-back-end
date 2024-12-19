@@ -22,7 +22,7 @@ class WaController extends Controller
             $response = $client->post( 'https://waapi.app/api/v1/instances/32144/client/action/send-message', [
                 'body' => json_encode([
                     'message' => $msg,
-                    'chatId' => '78622990@c.us',
+                    'chatId' => '249991961111@c.us',
                 ]),
                 'headers' => [
                     'accept' => 'application/json',
@@ -30,8 +30,9 @@ class WaController extends Controller
                     'content-type' => 'application/json',
                 ],
             ]);
+            $body = $response->getBody()->getContents();
 
-            echo "Response: " . $response->getBody();
+            return ["Response" =>json_decode($body),'show'=>true,'message'=>json_decode($body)->status];
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $error = $e->getResponse()->getBody()->getContents();
@@ -51,7 +52,7 @@ class WaController extends Controller
                 'body' => json_encode([
                     'longitude' => 56.822308144953524,
                     'latitude' => 24.258748156049695,
-                    'chatId' => '78622990@c.us',
+                    'chatId' => '249991961111@c.us',
                 ]),
                 'headers' => [
                     'accept' => 'application/json',
@@ -60,7 +61,9 @@ class WaController extends Controller
                 ],
             ]);
 
-            echo "Response: " . $response->getBody();
+            $body = $response->getBody()->getContents();
+
+            return ["Response" =>json_decode($body),'show'=>true,'message'=>json_decode($body)->status];
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $error = $e->getResponse()->getBody()->getContents();
@@ -84,17 +87,16 @@ class WaController extends Controller
 $client = new \GuzzleHttp\Client();
 
 $response = $client->request('POST', 'https://waapi.app/api/v1/instances/32144/client/action/send-media', [
-    'body' => json_encode(["mediaBase64"=>"$data","mediaName"=>"file.pdf","chatId"=>"78622990@c.us"]),
+    'body' => json_encode(["mediaBase64"=>"$data","mediaName"=>"file.pdf","chatId"=>"249991961111@c.us"]),
     'headers' => [
         'accept' => 'application/json',
         'authorization' => 'Bearer TkMjJdSCXophIf50uG91iG6xkIe3JhKABg2Z2lkB3b0575ea',
         'content-type' => 'application/json',
     ],
 ]);
+            $body = $response->getBody()->getContents();
 
-echo $response->getBody();
-
-            return "Response: " . $response->getBody();
+            return ["Response" =>json_decode($body),'show'=>true,'message'=>json_decode($body)->status];
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $error = $e->getResponse()->getBody()->getContents();

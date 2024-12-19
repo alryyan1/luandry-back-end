@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChildMeal> $childMeals
  * @property-read int|null $child_meals_count
  * @method static \Illuminate\Database\Eloquent\Builder|Meal wherePeopleCount($value)
+ * @property string|null $image_url
+ * @method static \Illuminate\Database\Eloquent\Builder|Meal whereImageUrl($value)
  * @mixin \Eloquent
  */
 class Meal extends Model

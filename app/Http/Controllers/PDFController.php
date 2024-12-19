@@ -317,7 +317,7 @@ class PDFController extends Controller
             foreach ($orderMeal->requestedChildMeals as $requestedChildMeal){
                 $pdf->Cell($colWidth*2,5,$requestedChildMeal->childMeal->service->name,'B',0,fill: 0);
 //                $pdf->Cell($colWidth/2,5,'','B',0,fill: 0); //comment this line if using del-pasta
-                $pdf->Cell($colWidth/2,5,$requestedChildMeal->count,'B',0,fill: 0); //del pasta
+                $pdf->Cell($colWidth/2,5,$requestedChildMeal->quantity,'B',0,fill: 0); //del pasta
                 $pdf->Cell($colWidth/2,5,$requestedChildMeal->price,'B',1,fill: 0,align: 'C');
 
             }
@@ -398,10 +398,10 @@ class PDFController extends Controller
 
 
         $col = $page_width / 2;
-        $pdf->Cell($col,5,'CR'.$settings->cr,0,0,'C');
-        $pdf->Cell($col,5,'GSM'.$settings->phone,0,1,'C');
-        $pdf->Cell($col,5,'Email:'.$settings->email,0,0,'C');
-        $pdf->Cell( $col,5,$settings->address.'  Address',0,1,'C');
+//        $pdf->Cell($col,5,'CR'.$settings->cr,0,0,'C');
+//        $pdf->Cell($col,5,'GSM'.$settings->phone,0,1,'C');
+//        $pdf->Cell($col,5,'Email:'.$settings->email,0,0,'C');
+//        $pdf->Cell( $col,5,$settings->address.'  Address',0,1,'C');
 
 
         if ($wb){

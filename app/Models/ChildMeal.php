@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $meal_id
@@ -30,6 +30,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ChildMeal whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChildMeal whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChildMeal whereWeight($value)
+ * @property int $service_id
+ * @property-read \App\Models\Service $service
+ * @method static \Illuminate\Database\Eloquent\Builder|ChildMeal whereServiceId($value)
  * @mixin \Eloquent
  */
 class ChildMeal extends Model

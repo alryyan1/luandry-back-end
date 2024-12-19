@@ -82,7 +82,7 @@ Text;
                 $q->whereRaw('Date(created_at) = ?',[$date]);
         });
 //        return ['data'=> $query->orderByDesc('id')->paginate($page) , 'analytics'=> \DB::getQueryLog()];
-        return $query->orderByDesc('id')->paginate($page);
+        return $query->orderByDesc('id')->paginate($request->get('page'));
 
 
     }
@@ -191,7 +191,7 @@ Text;
         if ($lastOrder) {
             $new_number = $lastOrder->order_number + 1;
         }
-        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id,'delivery_date'=>$today]);
+        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id,'delivery_date'=>$today,'draft'=>' ']);
 
         return response()->json(['status' => $order, 'data' => $order->load(['mealOrders.meal','mealOrders'])], 201,);
     }

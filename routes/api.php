@@ -48,6 +48,7 @@ Route::patch('services/{service}',[\App\Http\Controllers\ServiceController::clas
 Route::post('services',[\App\Http\Controllers\ServiceController::class,'store']);
 Route::post('defineServices/{meal}',[\App\Http\Controllers\ServiceController::class,'defineServices']);
 Route::get('categories',[\App\Http\Controllers\CategoryController::class,'index']);
+Route::patch('categories/{category}',[\App\Http\Controllers\CategoryController::class,'update']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store']);
 });

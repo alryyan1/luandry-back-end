@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
+ * @property string $image_url
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereImageUrl($value)
  * @mixin \Eloquent
  */
 class Category extends Model

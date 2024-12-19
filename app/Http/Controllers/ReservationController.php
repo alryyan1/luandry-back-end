@@ -25,6 +25,7 @@ class ReservationController extends Controller
             $address = $order?->customer?->area . ' '. $order?->customer?->state . ' ';
             $phone = $order?->customer?->phone;
             $status = $order?->status;
+            $draft = $order?->draft;
             $message = <<<TEXT
 الاسم:               $name
 
@@ -36,6 +37,9 @@ class ReservationController extends Controller
 
 الطلبات:
 $ordersMeals
+
+المسودة:
+$draft
 TEXT;
             $fr = ['id'=>$order->id,'title'=>$message,'start'=>$order->delivery_date,'end'=>$order->delivery_date];
             $food_reservations[] = $fr;

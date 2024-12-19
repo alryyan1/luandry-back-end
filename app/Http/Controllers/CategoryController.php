@@ -20,4 +20,8 @@ class CategoryController extends Controller
 
         return response()->json(['message' => 'Category created successfully','status'=>$data->fresh()]);
     }
+    public function update(Request $request, Category $category)
+    {
+        $category->update($request->all());
+    }
 }

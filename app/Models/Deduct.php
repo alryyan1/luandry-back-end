@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereOrderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereUpdatedAt($value)
+ * @property int $service_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereServiceId($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
