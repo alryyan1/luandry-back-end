@@ -71,8 +71,8 @@ class CustomerController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
-            'area' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
+            'area' => '',
+            'state' => '',
         ]);
 
         $customer = Customer::create($data);
