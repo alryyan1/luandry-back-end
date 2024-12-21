@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $meal_id
@@ -40,6 +40,21 @@ class ChildMeal extends Model
     protected $guarded = [];
     protected $with =['service'];
     use HasFactory;
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Use the creating event to set the value before the model is saved
+        static::creating(function ($model) {
+            $model->price = $model->service->price;
+        });
+
+        // You could also use the created event (after saving)
+        // static::created(function ($model) {
+        //     $model->your_column_name = 'your_value';
+        //     $model->save();
+        // });
+    }
     public function meal()
     {
         return $this->belongsTo(Meal::class);

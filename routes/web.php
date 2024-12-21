@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebHookController;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,3 +77,14 @@ Route::get('convert_categories_images',function (){
        $mealController->saveImage(null,$category);
    }
 });
+
+Route::get('service_price',function (){
+    $meals =  \App\Models\Meal::get();
+    /** @var \App\Models\Meal $meal */
+     foreach ($meals as $meal){
+            foreach($meal->childMeals as $child){
+               $service =   Service::find($child->service->id);
+                $service->update(['price'=>$child->price]);
+            }
+    }
+ });

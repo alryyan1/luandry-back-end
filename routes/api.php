@@ -44,6 +44,8 @@ Route::apiResource('childMeals', \App\Http\Controllers\ChildMealController::clas
 Route::post('settings',[SettingsController::class,'update']);
 Route::get('settings',[SettingsController::class,'index']);
 Route::get('services',[\App\Http\Controllers\ServiceController::class,'index']);
+Route::get('service/{service}',[\App\Http\Controllers\ServiceController::class,'show']);
+
 Route::patch('services/{service}',[\App\Http\Controllers\ServiceController::class,'update']);
 Route::post('services',[\App\Http\Controllers\ServiceController::class,'store']);
 Route::post('defineServices/{meal}',[\App\Http\Controllers\ServiceController::class,'defineServices']);
@@ -66,7 +68,7 @@ Route::post('orderMealsStats',[\App\Http\Controllers\OrderController::class,'ord
 Route::post('send/{order}',[\App\Http\Controllers\OrderController::class,'send']);
 Route::post('sendMsg/{order}',[\App\Http\Controllers\OrderController::class,'sendMsg']);
 Route::post('deposits',[\App\Http\Controllers\DepositController::class,'store']);
-Route::post('deducts/{order}',[\App\Http\Controllers\DeductController::class,'store']);
+Route::post('deducts/{customer}',[\App\Http\Controllers\DeductController::class,'store']);
 Route::get('arrival',[\App\Http\Controllers\OrderController::class,'arrival']);
 Route::patch('arrival/{order}',[\App\Http\Controllers\OrderController::class,'notify']);
 

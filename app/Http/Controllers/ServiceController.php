@@ -13,6 +13,9 @@ class ServiceController extends Controller
     {
         return Service::all();
     }
+    public function show(Service $service){
+        return $service;
+    }
     public function store(Request $request)
     {
         return Service::create($request->all());
