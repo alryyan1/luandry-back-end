@@ -135,8 +135,8 @@ Text;
         $date =  $request->get('date');
         if ($date){
             $filter = " WHERE orders.delivery_date = '$date'";
-        }elseif ($request->get('category')){
-            $filter.='Where c.id = '.$request->get('category');
+        }elseif ($request->get('customer')){
+            $filter.='Where c.id = '.$request->get('customer');
         }
 //        $query = ;
         $data =  $pdo->query("SELECT s.id as serviceId, s.name as childName,   SUM(child_meals.quantity * requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
@@ -144,7 +144,7 @@ Text;
     join order_meals  on order_meals.id = requested_child_meals.order_meal_id
     join meals  on meals.id = child_meals.meal_id
     join orders on orders.id = order_meals.order_id
-    join  categories c on c.id = meals.category_id
+    join  customers c on c.id = orders.customer_id
     join services s on s.id = child_meals.service_id
                                          $filter   GROUP by s.name,s.id")->fetchAll();
 

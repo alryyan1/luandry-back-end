@@ -46,11 +46,11 @@ class MealController extends Controller
     {
         return Meal::with('category')->orderByDesc('id')->get();
     }
-    public function saveImage(Request|null $request,Category $meal)
+    public function saveImage(Request|null $request,Meal $meal)
     {
         // Example Base64 string input (from a request)
-//        $base64String = $request->input('image'); // Replace 'image' with the correct key from your form
-        $base64String = $meal->image; // Replace 'image' with the correct key from your form
+       $base64String = $request->input('image'); // Replace 'image' with the correct key from your form
+        // $base64String = $meal->image; // Replace 'image' with the correct key from your form
 
         // Check if the string has a data prefix (e.g., "data:image/png;base64,")
         if (preg_match('/^data:image\/(\w+);base64,/', $base64String, $matches)) {

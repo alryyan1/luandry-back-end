@@ -73,6 +73,7 @@ class CustomerController extends Controller
             'phone' => 'required|string|max:15',
             'area' => '',
             'state' => '',
+            'is_store' => '',
         ]);
 
         $customer = Customer::create($data);
@@ -104,7 +105,8 @@ class CustomerController extends Controller
             'name' => 'sometimes|required|string|max:255',
             'phone' => 'sometimes|required|string|max:15',
              'area'=> 'sometimes|required|string|max:255',
-             'state'=> 'sometimes|required|string|max:255'
+             'state'=> 'sometimes|required|string|max:255',
+             'is_store'=>'',
         ]);
 
         return ['status'=>$customer->update($data),'data'=>$customer->fresh()];

@@ -71,7 +71,14 @@ class OrderMealsController extends Controller
             return  response()->json(['status'=>false,'message'=>'لا يمكن تعديل بعد تاكيد الطلب'],404);
         }
       //  $orderMeal =  OrderMeal::where('meal_id',$request->meal_id)->where('order_id',$request->order_id)->first();
+        /**@var OrderMeal */
         $orderMeal =  OrderMeal::create($request->all());
+        if ($orderMeal->meal->childMeals->count() == 1) {
+            $requestedChildController = new RequestedChildMealController();
+            $requestedChildController->storeAll($request,$orderMeal);
+        }
+
+
 
 //        $requestedChildController = new RequestedChildMealController();
 //        $requestedChildController->store($request,$orderMeal);

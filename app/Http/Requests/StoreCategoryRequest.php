@@ -23,7 +23,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'required|string', // assuming 'image' is a URL or base64-encoded string
+            'image_url' => '', // assuming 'image' is a URL or base64-encoded string
         ];
     }
 }
