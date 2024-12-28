@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $customer_id
@@ -78,6 +78,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereOutsideConfirmed($value)
  * @property string $draft
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDraft($value)
+ * @property int $complete
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereComplete($value)
  * @mixin \Eloquent
  */
 class Order extends Model

@@ -41,6 +41,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Settings whereLogoBase64($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Settings wherePrintDirect($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Settings whereUpdatedAt($value)
+ * @property string $authorized_phones
+ * @property string $token
+ * @property string $instance
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereAuthorizedPhones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereInstance($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereToken($value)
  * @mixin \Eloquent
  */
 class Settings extends Model

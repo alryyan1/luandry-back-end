@@ -26,9 +26,10 @@ class Whatsapp extends Model
             $mobile = '968'. $mobile;
         }
 
+        $settings =  Settings::first();
 
-        $token = self::$token;
-        $instance = self::$instance;
+        $instance = $settings->instance;
+        $token = $settings->token;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -138,10 +139,11 @@ class Whatsapp extends Model
 
         if ($prefix){
         }else{
-            $mobile = '968'. $phone;
+            $phone = '968'. $phone;
         }
-        $instance = self::$instance;
-        $token = self::$token;
+       $settings =  Settings::first();
+        $instance = $settings->instance;
+        $token = $settings->token;
         //Encodes data base64
         $img_base64 = base64_encode($document);
         //urlencode — URL-encodes string
@@ -156,7 +158,7 @@ class Whatsapp extends Model
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "token=$token&to=$mobile&document=$img_base64&filename=report.pdf",
+            CURLOPT_POSTFIELDS => "token=$token&to=$phone&document=$img_base64&filename=report.pdf",
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded"
             ),

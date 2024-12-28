@@ -250,8 +250,8 @@ Text;
             $order->amount_paid = 0;
             $order->delivery_fee = 0;
         } elseif ($request->get('status') == 'delivered') {
-            //                   $order->amount_paid = $order->totalPrice();
-            // $order->update(['amount_paid' => $order->totalPrice()]);
+                            //   $order->amount_paid = $order->totalPrice();
+            $order->update(['amount_paid' => $order->totalPrice() - $order->discount]);
             //                   return ['show'=>true,'message'=>'shifjsidfjodf'];
 
 
