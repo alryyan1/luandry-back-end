@@ -22,17 +22,16 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text;
 
 class OrderController extends Controller
 {
-    public function orderById(Request $request,Order $order)
+    public function orderById(Request $request, Order $order)
     {
         return $order;
-
     }
     public function notify(Request $request, Order $order)
     {
-        if ($request->get('outside')== 1){
-            $order->car_palette = $request->get('car_palette'); ;
-            $order->outside =1 ;
-            $order->outside_confirmed =1 ;
+        if ($request->get('outside') == 1) {
+            $order->car_palette = $request->get('car_palette');;
+            $order->outside = 1;
+            $order->outside_confirmed = 1;
             $order->save();
             $order = $order->fresh();
             $name = $order->customer->name;
@@ -53,70 +52,65 @@ class OrderController extends Controller
 
 Text;
             $settings = Settings::first();
-            $worker_phone= $settings->inventory_notification_number;
-            Whatsapp::sendMsgWb($worker_phone,$msg);
+            $worker_phone = $settings->inventory_notification_number;
+            Whatsapp::sendMsgWb($worker_phone, $msg);
         }
     }
     public function arrival(Request $request)
     {
-       return   Order::where('outside','=',1)->get();
-
-
+        return   Order::where('outside', '=', 1)->get();
     }
     public function pagination(Request $request, $page)
     {
-//        \DB::enableQueryLog();
+        //        \DB::enableQueryLog();
         $query = Order::query();
         $query->with('mealOrders.meal');
         $name = $request->get('name');
-        $query->when($request->name,function (Builder $q) use ($name){
-            $q->whereHas('customer',function ( $q)  use($name){
-                $q->where('name','like',"%$name%")->orWhere('area','like',"%$name%")->orWhere('phone','like',"%$name%")->orWhere('state','like',"%$name%");
+        $query->when($request->name, function (Builder $q) use ($name) {
+            $q->whereHas('customer', function ($q)  use ($name) {
+                $q->where('name', 'like', "%$name%")->orWhere('area', 'like', "%$name%")->orWhere('phone', 'like', "%$name%")->orWhere('state', 'like', "%$name%");
             });
         });
-        $query->when($request->status,function (Builder $q) use ($request) {
-                $q->where('status','=',$request->status);
+        $query->when($request->status, function (Builder $q) use ($request) {
+            $q->where('status', '=', $request->status);
         });
-        $query->when($request->date,function (Builder $q) use ($request){
+        $query->when($request->date, function (Builder $q) use ($request) {
             $date = $request->date;
-                $q->whereRaw('Date(created_at) = ?',[$date]);
+            $q->whereRaw('Date(created_at) = ?', [$date]);
         });
-//        return ['data'=> $query->orderByDesc('id')->paginate($page) , 'analytics'=> \DB::getQueryLog()];
+        //        return ['data'=> $query->orderByDesc('id')->paginate($page) , 'analytics'=> \DB::getQueryLog()];
         return $query->orderByDesc('id')->paginate($request->get('page'));
-
-
     }
-    public function send(Request $request,Order $order)
+    public function send(Request $request, Order $order)
     {
-        if ($order->customer == null){
-            return response()->json(['status'=>false,'message'=>'Customer Must Be Selected'],404);
+        if ($order->customer == null) {
+            return response()->json(['status' => false, 'message' => 'Customer Must Be Selected'], 404);
         }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
-//        $msg = <<<TEXT
-//اهلاً وسهلاً ،
-//اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
-//
-//
-//تكرماً : إيداع المبلغ لإعتماد الطلب
-//
-//0345043777450011
-//منى العيسائي
-//بنك مسقط
-//
-//تحويل سريع
-//95519234
-//
-//الفاتوره  $totalPrice ريال
-//TEXT;
+        //        $msg = <<<TEXT
+        //اهلاً وسهلاً ،
+        //اختيارك يشرّفنا، تجربة مميزة ولذيذة إن شاء الله .
+        //
+        //
+        //تكرماً : إيداع المبلغ لإعتماد الطلب
+        //
+        //0345043777450011
+        //منى العيسائي
+        //بنك مسقط
+        //
+        //تحويل سريع
+        //95519234
+        //
+        //الفاتوره  $totalPrice ريال
+        //TEXT;
 
-      return  Whatsapp::sendPdf($request->get('base64'),$order->customer->phone);
-
+        return  Whatsapp::sendPdf($request->get('base64'), $order->customer->phone);
     }
-    public function sendMsg(Request $request,Order $order)
+    public function sendMsg(Request $request, Order $order)
     {
-        if ($order->customer == null){
-            return response()->json(['status'=>false,'message'=>'Customer Must be Selected'],404);
+        if ($order->customer == null) {
+            return response()->json(['status' => false, 'message' => 'Customer Must be Selected'], 404);
         }
         $meals_names = $order->orderMealsNames();
         $totalPrice = $order->totalPrice();
@@ -125,20 +119,19 @@ Text;
         $msg = $settings->header_content;
         Whatsapp::sendLocation($order->customer->phone);
 
-      return  Whatsapp::sendMsgWb($order->customer->phone,$msg);
-
+        return  Whatsapp::sendMsgWb($order->customer->phone, $msg);
     }
     public function orderMealsStats(Request $request)
     {
         $pdo = \DB::getPdo();
         $filter = '';
         $date =  $request->get('date');
-        if ($date){
+        if ($date) {
             $filter = " WHERE orders.delivery_date = '$date'";
-        }elseif ($request->get('customer')){
-            $filter.='Where c.id = '.$request->get('customer');
+        } elseif ($request->get('customer')) {
+            $filter .= 'Where c.id = ' . $request->get('customer');
         }
-//        $query = ;
+        //        $query = ;
         $data =  $pdo->query("SELECT s.id as serviceId, s.name as childName,   SUM(child_meals.quantity * requested_child_meals.count) as totalQuantity FROM `requested_child_meals`
     JOIN child_meals  on child_meals.id = requested_child_meals.child_meal_id
     join order_meals  on order_meals.id = requested_child_meals.order_meal_id
@@ -149,34 +142,29 @@ Text;
                                          $filter   GROUP by s.name,s.id")->fetchAll();
 
         $arr = [];
-        foreach ($data as $d){
+        foreach ($data as $d) {
             $serviceId =  $d['serviceId'];
-            $quantity_sum =  Deposit::where('service_id','=',$serviceId)->sum('quantity');
-            $quantity_deducted_sum =  Deduct::where('service_id','=',$serviceId)->sum('quantity');
+            $quantity_sum =  Deposit::where('service_id', '=', $serviceId)->sum('quantity');
+            $quantity_deducted_sum =  Deduct::where('service_id', '=', $serviceId)->sum('quantity');
             $d['totalDeposit'] = $quantity_sum;
             $d['totalDeduct'] = $quantity_deducted_sum;
-            $arr[]=$d;
-//            print_r($d);
+            $arr[] = $d;
+            //            print_r($d);
         }
-//        \DB::table('requested_child_meals')
+        //        \DB::table('requested_child_meals')
         return response()->json($arr);
     }
-    public function orderConfirmed(Request $request , Order $order)
-    {
-
-    }
+    public function orderConfirmed(Request $request, Order $order) {}
     // Get all orders
     public function index(Request $request)
     {
         if ($request->query('today')) {
             $today = Carbon::today();
-            return Order::with(['mealOrders.meal','mealOrders'=>function ($q) {
+            return Order::with(['mealOrders.meal', 'mealOrders' => function ($q) {
                 $q->with('requestedChildMeals.orderMeal');
             }])->whereDate('created_at', $today)->orderByDesc('id')->get();
-
         } else {
             return Order::with('mealOrders.meal')->orderByDesc('id')->get();
-
         }
     }
 
@@ -191,9 +179,9 @@ Text;
         if ($lastOrder) {
             $new_number = $lastOrder->order_number + 1;
         }
-        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id,'delivery_date'=>$today,'draft'=>' ']);
+        $order = Order::create(['order_number' => $new_number, 'user_id' => $user->id, 'delivery_date' => $today, 'draft' => ' ']);
 
-        return response()->json(['status' => $order, 'data' => $order->load(['mealOrders.meal','mealOrders'])], 201,);
+        return response()->json(['status' => $order, 'data' => $order->load(['mealOrders.meal', 'mealOrders'])], 201,);
     }
 
     // Update order status
@@ -207,8 +195,10 @@ Text;
     public function update(Request $request, Order $order)
     {
 
-
-        if ($request->get('status')=='Completed'){
+        $whatsapp = null;
+        if ($request->get('complete') == 1 && $order->whatsapp != 1) {
+            $order->status = 'Completed';
+            $order->save();
             $name = $order->customer->name;
             $msg = <<<Text
  عزيزي العميل  $name
@@ -217,7 +207,7 @@ Text;
  شكرا لاختيارك لنا
 Text;
 
-            Whatsapp::sendMsgWb($order->customer->phone,$msg);
+            Whatsapp::sendMsgWb($order->customer->phone, $msg);
 
             $msg = <<<Text
  عزيزي العميل
@@ -225,49 +215,51 @@ Text;
  https://rain-laundry.com/#arrive/$order->id
 
 Text;
-            Whatsapp::sendMsgWb($order->customer->phone,$msg);
+            Whatsapp::sendMsgWb($order->customer->phone, $msg);
 
             $pdfC = new PDFController();
             //send invoice using whatsapp
-//            $request->order_id = $order->id;
-            $pdfC->printSale($request,$order->id,true);
+            //            $request->order_id = $order->id;
+           $whatsapp =  json_decode( $pdfC->printSale($request, $order->id, true));
+           if ($whatsapp->message) {
+             $order->whatsapp =1;
+             $order->save();
+           }
+
         }
-        if ($request->amount_paid > $order->totalPrice()){
-            return response()->json(['status'=>false,'message'=>'Bad operation'],404);
+        if ($request->amount_paid > ($order->totalPrice() - $order->discount)) {
+            return response()->json(['status' => false, 'message' => 'Bad operation'], 404);
         }
         if ($request->get('order_confirmed')) {
         }
-            if ($request->get('order_confirmed')){
+        if ($request->get('order_confirmed')) {
 
-            if ($order->customer == null){
-                return response()->json(['status'=>false,'message'=>'Customer must be selected'],404);
+            if ($order->customer == null) {
+                return response()->json(['status' => false, 'message' => 'Customer must be selected'], 404);
             }
-            if ($order->status == 'cancelled'){
-                return response()->json(['status'=>false,'message'=>'Please Change Status First'],404);
+            if ($order->status == 'cancelled') {
+                return response()->json(['status' => false, 'message' => 'Please Change Status First'], 404);
             }
-//            return  $request->get('amount_paid');
+            //            return  $request->get('amount_paid');
 
 
-       //     $order->amount_paid = $order->totalPrice();
+            //     $order->amount_paid = $order->totalPrice();
             $order->status = 'confirmed';
-
-
-        }elseif ($request->get('status') == 'cancelled'){
+        } elseif ($request->get('status') == 'cancelled') {
             $order->order_confirmed = 0;
-                $order->amount_paid = 0;
-                $order->delivery_fee = 0;
-
-        }elseif ($request->get('status') == 'delivered'){
-//                   $order->amount_paid = $order->totalPrice();
-                   $order->update(['amount_paid'=>$order->totalPrice()]);
-//                   return ['show'=>true,'message'=>'shifjsidfjodf'];
+            $order->amount_paid = 0;
+            $order->delivery_fee = 0;
+        } elseif ($request->get('status') == 'delivered') {
+            //                   $order->amount_paid = $order->totalPrice();
+            // $order->update(['amount_paid' => $order->totalPrice()]);
+            //                   return ['show'=>true,'message'=>'shifjsidfjodf'];
 
 
         }
 
 
         $result = $order->update($request->all());
-        return response()->json(['status' => $result, 'order' => $order->load('customer'),'show'=>$order->order_confirmed == true], 200);
+        return response()->json(['status' => $result, 'order' => $order->load('customer'), 'show' => true,'whatsapp'=>$whatsapp], 200);
     }
 
 
@@ -278,14 +270,13 @@ Text;
     }
 
 
-    public function destroy(Request $request ,Order $order)
+    public function destroy(Request $request, Order $order)
     {
-        return ['status'=>$order->delete()];
+        return ['status' => $order->delete()];
     }
 
     public function exportExcel()
     {
         return Excel::download(new ExportOrder, 'orders.xlsx');
     }
-
 }

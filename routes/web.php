@@ -88,3 +88,16 @@ Route::get('service_price',function (){
             }
     }
  });
+ Route::get('child_meals',function (){
+    $child_meals =  \App\Models\ChildMeal::get();
+    /** @var \App\Models\ChildMeal $child_meal */
+     foreach ($child_meals as $child_meal){
+               $service =   Service::whereRaw("name like '%$child_meal->name%'")->first();
+               if ($service) {
+                # code...
+                $child_meal->service_id = $service->id;
+                $child_meal->save();
+               }
+
+    }
+ });

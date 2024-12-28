@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 class Whatsapp extends Model
 {
     use HasFactory;
-    static string $token = '199su5ud5hyxz4dm';
-    static string $instance = 'instance101527';
+    static string $token = 'wv2ad6l6a6q83gu8';
+    static string $instance = 'instance102597';
     public static function sendMsgWb( $mobile, $msg,$prefix = false)
 
     {
@@ -170,7 +170,7 @@ class Whatsapp extends Model
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
-            echo $response;
+            return $response;
         }
     }
 }

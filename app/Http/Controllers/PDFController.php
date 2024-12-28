@@ -288,7 +288,7 @@ class PDFController extends Controller
 
         $pdf->Cell($colWidth * 2,5,'Name ','B',0,fill: 0);
         $pdf->Cell($colWidth/2,5,' ','B',0,fill: 0);
-        $pdf->Cell($colWidth/2,5,'Price ','B',1,fill: 0);
+        $pdf->Cell($colWidth/2,5,'QYN ','B',1,fill: 0);
 
         /** @var OrderMeal $orderMeal */
         foreach ($order->mealOrders as $orderMeal){
@@ -306,18 +306,18 @@ class PDFController extends Controller
             $colWidth = $page_width /3;
             $pdf->Cell($colWidth * 2.3 ,5,$orderMeal->meal->name,1,0,fill: 0);
 //            $pdf->Cell($colWidth/2,5,' ','TB',0,fill: 1);
-            $pdf->Cell(($colWidth/2) - 0.5,5, $orderMeal->price,1,1,fill: 0,align: 'C');
+            $pdf->Cell(($colWidth/2) - 0.5,5, $orderMeal->quantity,1,1,fill: 0,align: 'C');
             $colWidth = $page_width/3;
 //
             $pdf->Cell($colWidth*2,5,'Item ','B',0,fill: 0);
-            $pdf->Cell($colWidth/2,5,'QYN ','B',0,fill: 0);
+            $pdf->Cell($colWidth/2,5,' ','B',0,fill: 0);
             $pdf->Cell($colWidth/2,5,'Price ','B',1,fill: 0);
 //            $pdf->Ln();
             /** @var RequestedChildMeal $requestedChildMeal */
             foreach ($orderMeal->requestedChildMeals as $requestedChildMeal){
                 $pdf->Cell($colWidth*2,5,$requestedChildMeal->childMeal->service->name,'B',0,fill: 0);
 //                $pdf->Cell($colWidth/2,5,'','B',0,fill: 0); //comment this line if using del-pasta
-                $pdf->Cell($colWidth/2,5,$requestedChildMeal->quantity,'B',0,fill: 0); //del pasta
+                $pdf->Cell($colWidth/2,5,'','B',0,fill: 0); //del pasta
                 $pdf->Cell($colWidth/2,5,$requestedChildMeal->price,'B',1,fill: 0,align: 'C');
 
             }
@@ -368,9 +368,9 @@ class PDFController extends Controller
         $pdf->Cell($cols ,5,'Total','TB',1,'C',fill: 0);
         $pdf->SetFont($arial, '', 10, '', true);
 
-//        $pdf->Cell($cols,5,'المدفوع','TB',0,'C',fill: 0);
-//        $pdf->Cell($cols,5,$order->amount_paid ,'TB' ,0,'C',0);
-//        $pdf->Cell($cols ,5,'Paid','TB',1,'C',fill: 0);
+       $pdf->Cell($cols,5,'التخفيض','TB',0,'C',fill: 0);
+       $pdf->Cell($cols,5,$order->discount ,'TB' ,0,'C',0);
+       $pdf->Cell($cols ,5,'Discount','TB',1,'C',fill: 0);
 //
 
 
@@ -406,9 +406,9 @@ class PDFController extends Controller
 
         if ($wb){
             $result_as_bs64 = $pdf->output('name.pdf', 'S');
-//            Whatsapp::sendPdf($result_as_bs64, $order->customer->phone);
-             $wa = new WaController();
-             $wa->sendDocument($request,$result_as_bs64);
+         return   Whatsapp::sendPdf($result_as_bs64, $order->customer->phone);
+            //  $wa = new WaController();
+            //  $wa->sendDocument($request,$result_as_bs64);
         }
 
         if ($request->has('base64')) {

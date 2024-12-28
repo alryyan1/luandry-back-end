@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -15,6 +15,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Service query()
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereName($value)
+ * @property float $price
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deduct> $deducts
+ * @property-read int|null $deducts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deposit> $deposits
+ * @property-read int|null $deposits_count
+ * @property-read mixed $inventory
+ * @property-read mixed $sold
+ * @method static \Illuminate\Database\Eloquent\Builder|Service wherePrice($value)
  * @mixin \Eloquent
  */
 class Service extends Model

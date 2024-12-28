@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereUpdatedAt($value)
  * @property int $service_id
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereServiceId($value)
+ * @property int $customer_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereCustomerId($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model

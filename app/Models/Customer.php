@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $state
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereArea($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereState($value)
+ * @property int $is_store
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereIsStore($value)
  * @mixin \Eloquent
  */
 class Customer extends Model
