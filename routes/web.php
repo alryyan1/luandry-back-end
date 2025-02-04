@@ -30,6 +30,7 @@ Route::get('/orders',[\App\Http\Controllers\PDFController::class,'orders']);
 Route::get('/month',[\App\Http\Controllers\PDFController::class,'month']);
 Route::get('/print',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('/cost',[\App\Http\Controllers\PDFController::class,'expenses']);
+Route::get('/newAndDeliveredReport',[\App\Http\Controllers\PDFController::class,'newAndDeliveredReport']);
 
 //users
 Route::get('/users',[UserController::class,'create']);

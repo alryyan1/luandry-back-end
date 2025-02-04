@@ -248,8 +248,13 @@ Text;
         } elseif ($request->get('status') == 'cancelled') {
             $order->order_confirmed = 0;
             $order->amount_paid = 0;
+            $order->delivery_date2 = null;
+
             $order->delivery_fee = 0;
         } elseif ($request->get('status') == 'delivered') {
+            //set delivery_date1 field to current date and time 
+            $order->delivery_date2 = Carbon::now();
+
                             //   $order->amount_paid = $order->totalPrice();
             $order->update(['amount_paid' => $order->totalPrice() - $order->discount]);
             //                   return ['show'=>true,'message'=>'shifjsidfjodf'];
