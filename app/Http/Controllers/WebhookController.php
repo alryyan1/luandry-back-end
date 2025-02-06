@@ -26,7 +26,7 @@ class WebHookController extends Controller
             $from_sms =  str_replace("@", "", $from_sms);
             $settings = Settings::first();
             $phone_numbers =   explode(',', $settings->authorized_phones);
-                            $array = collect($phone_numbers);
+            $array = collect($phone_numbers);
 
             if ($msg == '1') {
                 if ($array->contains($from_sms)) {
@@ -55,6 +55,34 @@ TXT;
                     $pdfController = new PDFController();
                     $pdfController->month($request, $from_sms);
                 }
+            }
+            // if ($msg == '3') {
+                
+                if ($array->contains($from_sms)) {
+                    
+                    if (!str_contains($msg, "يوم")) {
+                        Whatsapp::sendMsgWb($from_sms, '😊 ارسل كلمه يوم يتبعه رقم اليوم المحدد في هذا الشهر', true);
+                        return;
+                    }   
+                    
+                    //extract the number from the msg
+
+                    preg_match('/\d+/', $msg, $matches);
+
+                    if ($matches[0]) {
+
+                        # send monthly report
+                        $msg = <<<TXT
+                    جاري اعداد التقرير ...
+                    سيتم ارساله في لحظات
+                    TXT;
+                        Whatsapp::sendMsgWb($from_sms, $msg, true);
+                        $pdfController = new PDFController();
+                        $pdfController->newAndDeliveredReport($request, $from_sms, $matches[0]);
+                    } else {
+                        Whatsapp::sendMsgWb($from_sms, 'ادخال خاطئ    ', true);
+                    }
+                // }
             }
             // $pdfController = new PDFController();
 
