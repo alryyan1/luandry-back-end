@@ -31,6 +31,7 @@ Route::get('/month',[\App\Http\Controllers\PDFController::class,'month']);
 Route::get('/print',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('/cost',[\App\Http\Controllers\PDFController::class,'expenses']);
 Route::get('/newAndDeliveredReport',[\App\Http\Controllers\PDFController::class,'newAndDeliveredReport']);
+Route::get('/rep',[\App\Http\Controllers\PDFController::class,'rep']);
 
 //users
 Route::get('/users',[UserController::class,'create']);

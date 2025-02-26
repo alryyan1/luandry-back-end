@@ -47,6 +47,7 @@ Route::post('settings',[SettingsController::class,'update']);
 Route::get('settings',[SettingsController::class,'index']);
 Route::get('services',[\App\Http\Controllers\ServiceController::class,'index']);
 Route::get('service/{service}',[\App\Http\Controllers\ServiceController::class,'show']);
+Route::get('/newAndDeliveredReport',[\App\Http\Controllers\PDFController::class,'newAndDeliveredReportMobile']);
 
 Route::patch('services/{service}',[\App\Http\Controllers\ServiceController::class,'update']);
 Route::post('services',[\App\Http\Controllers\ServiceController::class,'store']);
