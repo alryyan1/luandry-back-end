@@ -220,11 +220,14 @@ Text;
             $pdfC = new PDFController();
             //send invoice using whatsapp
             //            $request->order_id = $order->id;
-           $whatsapp =  json_decode( $pdfC->printSale($request, $order->id, true));
-           if ($whatsapp->message) {
+          if(strlen($order->phone) == 8){
+                $whatsapp =  json_decode( $pdfC->printSale($request, $order->id, true));
+           if ($whatsapp?->message) {
              $order->whatsapp =1;
              $order->save();
            }
+          }
+         
 
         }
         if ($request->amount_paid > ($order->totalPrice() - $order->discount)) {
